@@ -1,10 +1,9 @@
 import { FadeIn, StaggerList } from "@/components/motion";
 import { ChevronRightIcon } from "@/components/icons";
 import { SiteHeader } from "@/components/site-header";
-import { Terminal } from "@/components/terminal";
+import { TerminalClient } from "@/components/terminal-client";
 import Link from "next/link";
 import {
-  achievements,
   currentlyBuilding,
   contactLinks,
   blogPosts,
@@ -72,7 +71,7 @@ export default function Home() {
                 href={siteConfig.resumeUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="rounded-full bg-neutral-950 px-5 py-3 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:bg-white dark:text-neutral-950"
+                className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/15 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
               >
                 Resume
               </a>
@@ -101,7 +100,7 @@ export default function Home() {
           <FadeIn delay={0.1} className="rounded-[2rem] border border-black/5 bg-white/85 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/5">
             <div className="rounded-[1.5rem] border border-black/5 bg-neutral-950 p-5 text-white dark:border-white/10">
               <p className="text-xs uppercase tracking-[0.24em] text-white/55">Terminal</p>
-              <Terminal />
+              <TerminalClient />
             </div>
             <div className="mt-4 grid grid-cols-2 gap-3">
               {heroStats.map((stat) => (
@@ -278,8 +277,8 @@ export default function Home() {
         <section id="blog" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Blog"
-            title="Three short posts that signal real technical judgment."
-            description="These posts are intentionally concise, recruiter-friendly, and tied to the projects in the portfolio."
+            title="A few concise posts that show technical judgment."
+            description="These posts stay short, recruiter-friendly, and tied to the projects in the portfolio."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {blogPosts.map((post) => (
@@ -299,7 +298,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Timeline"
             title="A concise professional arc."
-            description="This is the version recruiters can scan quickly to understand growth across leadership, research, and shipping work."
+            description="Recruiters can scan this quickly to understand growth across leadership, research, and shipping work."
           />
           <div className="mt-10 space-y-4">
             {timeline.map((item) => (
@@ -328,21 +327,6 @@ export default function Home() {
               <span key={skill} className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
                 {skill}
               </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-t border-black/5 py-16 dark:border-white/10">
-          <SectionHeading
-            eyebrow="Achievements"
-            title="Quantified signals"
-            description="These numbers help the page read like evidence, not decoration."
-          />
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {achievements.map((item) => (
-              <div key={item} className="rounded-2xl border border-black/5 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
-                {item}
-              </div>
             ))}
           </div>
         </section>

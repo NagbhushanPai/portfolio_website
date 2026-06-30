@@ -50,7 +50,6 @@ export function Terminal() {
     <div aria-label="Interactive terminal" className="text-white">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs uppercase tracking-[0.24em] text-white/55">Terminal</p>
           <p className="mt-1 text-sm text-white/75">Try: help, about, projects, skills, experience, resume, contact</p>
         </div>
       </div>

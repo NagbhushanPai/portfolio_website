@@ -8,7 +8,7 @@ const THEME_EVENT = "portfolio-theme-change";
 
 function readThemeSnapshot() {
   if (typeof window === "undefined") {
-    return "light" as const;
+    return "dark" as const;
   }
 
   const stored = window.localStorage.getItem(STORAGE_KEY);
@@ -35,7 +35,7 @@ function applyTheme(theme: "light" | "dark") {
 }
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, readThemeSnapshot, () => "light");
+  const theme = useSyncExternalStore(subscribe, readThemeSnapshot, () => "dark");
   const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   return (
@@ -43,7 +43,7 @@ export function ThemeToggle() {
       type="button"
       onClick={() => applyTheme(theme === "dark" ? "light" : "dark")}
       aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-neutral-700 transition hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-neutral-700 transition-[background-color,box-shadow,transform] touch-manipulation hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
     >
       {theme === "dark" ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
     </button>

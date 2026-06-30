@@ -291,6 +291,7 @@ export const blogPosts: BlogPost[] = [
         body: [
           "Kafka is easiest to understand once you build the core ideas yourself.",
           "This project focuses on the data flow behind producers, partitions, offsets, and consumers.",
+          "Read the full post on Hashnode: https://nagbhushanpai.hashnode.dev/building-kafka-from-scratch-what-happens-after-you-call-send?utm_source=hashnode&utm_medium=feed",
         ],
       },
       {
@@ -315,6 +316,7 @@ export const blogPosts: BlogPost[] = [
         body: [
           "GraphQL reduces over-fetching and can simplify client-side composition.",
           "REST is often easier to cache, reason about, and operationalize when APIs are stable.",
+          "Read the full post on Hashnode: https://nagbhushanpai.hashnode.dev/graphql-vs-rest-at-scale-the-tradeoffs-nobody-talks-about?utm_source=hashnode&utm_medium=feed",
         ],
       },
       {
@@ -339,6 +341,7 @@ export const blogPosts: BlogPost[] = [
         body: [
           "The system combines frame preprocessing with a hybrid CNN and Vision Transformer approach.",
           "The goal was not only accuracy, but an inference flow that could be used interactively.",
+          "Read the full post on Hashnode: https://nagbhushanpai.hashnode.dev/how-i-built-an-ai-powered-deepfake-detector-lessons-from-training-a-hybrid-cnn-vision-transformer?utm_source=hashnode&utm_medium=feed",
         ],
       },
       {

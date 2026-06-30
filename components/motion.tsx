@@ -1,50 +1,58 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 
-export function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
+type RevealProps = {
+  children: ReactNode;
   className?: string;
-}) {
+  delay?: number;
+};
+
+function useInView(delay = 0) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          window.setTimeout(() => setIsVisible(true), delay * 1000);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -80px 0px", threshold: 0.08 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [delay]);
+
+  return { ref, isVisible };
+}
+
+export function FadeIn({ children, delay = 0, className = "" }: RevealProps) {
+  const { ref, isVisible } = useInView(delay);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.45, delay, ease: "easeOut" }}
-      className={className}
+    <div
+      ref={ref}
+      className={`${className} motion-reveal ${isVisible ? "motion-reveal-visible" : ""}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
-export function StaggerList({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+export function StaggerList({ children, className = "" }: RevealProps) {
+  const { ref, isVisible } = useInView();
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: { staggerChildren: 0.08 },
-        },
-      }}
-      className={className}
-    >
+    <div ref={ref} className={`${className} motion-stagger ${isVisible ? "motion-stagger-visible" : ""}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }
