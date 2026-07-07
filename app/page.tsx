@@ -2,7 +2,6 @@ import { FadeIn, StaggerList } from "@/components/motion";
 import { ChevronRightIcon } from "@/components/icons";
 import { SiteHeader } from "@/components/site-header";
 import { TerminalClient } from "@/components/terminal-client";
-import Link from "next/link";
 import {
   currentlyBuilding,
   contactLinks,
@@ -49,21 +48,21 @@ export default function Home() {
   };
 
   return (
-    <main id="top" className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_34%),linear-gradient(to_bottom,_#ffffff,_#f7f7f5)] text-neutral-950 dark:bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.07),_transparent_30%),linear-gradient(to_bottom,_#0a0a0a,_#111111)] dark:text-neutral-50">
+    <main id="top" className="min-h-screen overflow-x-clip bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_34%),linear-gradient(to_bottom,_#ffffff,_#f7f7f5)] text-neutral-950 dark:bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.07),_transparent_30%),linear-gradient(to_bottom,_#0a0a0a,_#111111)] dark:text-neutral-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col px-6 pb-20 pt-6 sm:px-10 lg:px-12">
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pb-20 pt-6 sm:px-6 md:px-10 lg:px-12">
         <SiteHeader />
 
         <section className="grid gap-10 pb-18 pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:pb-24">
-          <FadeIn className="max-w-3xl">
+          <FadeIn className="min-w-0 max-w-3xl">
             <p className="inline-flex rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium tracking-[0.22em] text-neutral-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
               SOFTWARE ENGINEER
             </p>
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-full break-words text-[clamp(2.6rem,12vw,4.6rem)] font-semibold tracking-tight leading-[0.95] text-balance sm:text-6xl lg:text-7xl">
               Building scalable backend systems and AI-powered products with calm, production-minded engineering.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+            <p className="mt-6 max-w-full text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8 dark:text-neutral-400">
               I design reliable services, data-driven pipelines, and practical ML workflows for recruiters, users, and teams that value systems thinking over surface-level polish.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -278,7 +277,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Blog"
             title="A few concise posts that show technical judgment."
-            description="These posts stay short, recruiter-friendly, and tied to the projects in the portfolio."
+            description="These posts stay short and tied to the projects in the portfolio."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {blogPosts.map((post) => (
@@ -286,9 +285,14 @@ export default function Home() {
                 <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">{post.publishedOn}</p>
                 <h3 className="mt-3 text-xl font-semibold">{post.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-400">{post.summary}</p>
-                <Link href={`/blog/${post.slug}`} className="mt-5 inline-flex text-sm font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100">
-                  Read post
-                </Link>
+                <a
+                  href={post.fullPostUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="mt-5 inline-flex text-sm font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100"
+                >
+                  Read the full post on Hashnode
+                </a>
               </article>
             ))}
           </div>
@@ -298,7 +302,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Timeline"
             title="A concise professional arc."
-            description="Recruiters can scan this quickly to understand growth across leadership, research, and shipping work."
+            description="Scan this quickly to understand growth across leadership, research, and shipping work."
           />
           <div className="mt-10 space-y-4">
             {timeline.map((item) => (

@@ -46,6 +46,7 @@ export type BlogPost = {
   publishedOn: string;
   readingTime: string;
   tags: string[];
+  fullPostUrl: string;
   sections: {
     heading: string;
     body: string[];
@@ -84,7 +85,7 @@ export const heroStats = [
   { value: "10K+", label: "requests/sec" },
   { value: "99%", label: "workflow reliability" },
   { value: "92%", label: "deepfake accuracy" },
-  { value: "5", label: "featured projects" },
+  { value: "4", label: "featured projects" },
 ] as const;
 
 export const experience: ExperienceItem[] = [
@@ -285,6 +286,8 @@ export const blogPosts: BlogPost[] = [
     publishedOn: "2026-06-24",
     readingTime: "4 min read",
     tags: ["Distributed Systems", "Messaging", "Backend"],
+    fullPostUrl:
+      "https://nagbhushanpai.hashnode.dev/building-kafka-from-scratch-what-happens-after-you-call-send?utm_source=hashnode&utm_medium=feed",
     sections: [
       {
         heading: "Why build it",
@@ -310,6 +313,8 @@ export const blogPosts: BlogPost[] = [
     publishedOn: "2026-06-24",
     readingTime: "4 min read",
     tags: ["API Design", "GraphQL", "REST"],
+    fullPostUrl:
+      "https://nagbhushanpai.hashnode.dev/graphql-vs-rest-at-scale-the-tradeoffs-nobody-talks-about?utm_source=hashnode&utm_medium=feed",
     sections: [
       {
         heading: "The tradeoff",
@@ -335,6 +340,8 @@ export const blogPosts: BlogPost[] = [
     publishedOn: "2026-06-24",
     readingTime: "5 min read",
     tags: ["Machine Learning", "Computer Vision", "MLOps"],
+    fullPostUrl:
+      "https://nagbhushanpai.hashnode.dev/how-i-built-an-ai-powered-deepfake-detector-lessons-from-training-a-hybrid-cnn-vision-transformer?utm_source=hashnode&utm_medium=feed",
     sections: [
       {
         heading: "Pipeline design",
@@ -356,6 +363,13 @@ export const blogPosts: BlogPost[] = [
 ];
 
 export const timeline = [
+  {
+    label: "ONJI Software Engineer Intern",
+    title: "Software Engineer Intern, ONJI Softwares Pvt Ltd (Demo)",
+    description:
+      "Developed React Native and Expo components, translated Figma designs into pixel-accurate features, implemented authentication and navigation flows, and collaborated through Git-based Agile delivery.",
+    year: "Jun 2025 - Aug 2025",
+  },
   {
     label: "Current work",
     title: "Shipping portfolio and engineering polish",

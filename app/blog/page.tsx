@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { blogPosts } from "@/lib/portfolio-data";
 
 export const metadata: Metadata = {
@@ -33,9 +32,14 @@ export default function BlogIndexPage() {
                   </span>
                 ))}
               </div>
-              <Link href={`/blog/${post.slug}`} className="mt-5 inline-flex text-sm font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100">
-                Read post
-              </Link>
+              <a
+                href={post.fullPostUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="mt-5 inline-flex text-sm font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100"
+              >
+                Read the full post on Hashnode
+              </a>
             </article>
           ))}
         </div>

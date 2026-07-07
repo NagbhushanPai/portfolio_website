@@ -23,7 +23,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed left-1/2 top-4 z-40 w-[min(100%-1rem,72rem)] -translate-x-1/2">
+      <header className="fixed left-4 right-4 top-4 z-40 mx-auto w-[calc(100vw-2rem)] max-w-6xl sm:left-6 sm:right-6 sm:w-[calc(100vw-3rem)] lg:left-1/2 lg:right-auto lg:w-[min(100vw-3rem,72rem)] lg:-translate-x-1/2">
         <div className="border border-black/5 bg-white/90 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-black/55">
           <div className="flex items-center justify-between gap-3 rounded-[1.25rem] px-3 py-2 md:rounded-full md:px-5">
             <div>
