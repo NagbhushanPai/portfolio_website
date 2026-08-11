@@ -1,7 +1,6 @@
 import { FadeIn, StaggerList } from "@/components/motion";
 import { ChevronRightIcon } from "@/components/icons";
 import { SiteHeader } from "@/components/site-header";
-import { TerminalClient } from "@/components/terminal-client";
 import {
   currentlyBuilding,
   contactLinks,
@@ -11,7 +10,6 @@ import {
   heroStats,
   projects,
   siteConfig,
-  skills,
   timeline,
 } from "@/lib/portfolio-data";
 
@@ -97,11 +95,7 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.1} className="rounded-[2rem] border border-black/5 bg-white/85 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="rounded-[1.5rem] border border-black/5 bg-neutral-950 p-5 text-white dark:border-white/10">
-              <p className="text-xs uppercase tracking-[0.24em] text-white/55">Terminal</p>
-              <TerminalClient />
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {heroStats.map((stat) => (
                 <div key={stat.label} className="rounded-2xl border border-black/5 bg-neutral-50 p-4 dark:border-white/10 dark:bg-white/5">
                   <div className="text-2xl font-semibold">{stat.value}</div>
@@ -197,7 +191,7 @@ export default function Home() {
         <section id="projects" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Projects"
-            title="Recruiter-focused case studies."
+            title="Side Projects built over the years."
             description="Each project card shows the problem, solution, stack, results, and links."
           />
           <StaggerList className="mt-10 grid gap-6 md:grid-cols-2">
@@ -276,8 +270,8 @@ export default function Home() {
         <section id="blog" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Blog"
-            title="A few concise posts that show technical judgment."
-            description="These posts stay short and tied to the projects in the portfolio."
+            title="Concise posts that for fun"
+            description="These posts stay short and informative"
           />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {blogPosts.map((post) => (
@@ -301,7 +295,7 @@ export default function Home() {
         <section id="timeline" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Timeline"
-            title="A concise professional arc."
+            title="The Professional arc."
             description="Scan this quickly to understand growth across leadership, research, and shipping work."
           />
           <div className="mt-10 space-y-4">
@@ -316,21 +310,6 @@ export default function Home() {
                   </div>
                 </article>
               </FadeIn>
-            ))}
-          </div>
-        </section>
-
-        <section id="skills" className="border-t border-black/5 py-16 dark:border-white/10">
-          <SectionHeading
-            eyebrow="Skills"
-            title="Core capabilities"
-            description="A compact view of the engineering areas this portfolio is built to communicate."
-          />
-          <div className="mt-8 flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span key={skill} className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-neutral-700 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
-                {skill}
-              </span>
             ))}
           </div>
         </section>
