@@ -56,7 +56,7 @@ export type BlogPost = {
 export const siteConfig = {
   name: "Nagbhushan Pai",
   role: "Software Engineer",
-  tagline: "Building scalable backend systems and AI-powered applications.",
+  tagline: "Backend systems, APIs, and AI products.",
   email: "nagbhushanpai707@gmail.com",
   github: "https://github.com/NagbhushanPai",
   linkedin: "https://www.linkedin.com/in/nagbhushan-pai/",
@@ -69,8 +69,6 @@ export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "#blog" },
-  { label: "Timeline", href: "#timeline" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -264,7 +262,7 @@ export const projects: Project[] = [
       "Explainability improves trust when the output is meant for decision support.",
     ],
     techStack: ["PyTorch", "OpenCV", "Flask", "Vision Transformers", "CNNs"],
-    metrics: ["92% classification accuracy", "Real-time inference", "Explainable scoring"],
+    metrics: ["CNN + Vision Transformer feature fusion", "Real-time inference", "Explainable scoring"],
     githubUrl: "https://github.com/NagbhushanPai/Deepfake-Detection-MTCNN-ConViT.git",
     liveUrl: undefined,
     featured: true,
@@ -364,24 +362,19 @@ export const blogPosts: BlogPost[] = [
 
 export const timeline = [
   {
+    label: "Data Axle Internship",
+    title: "Backend systems and workflow orchestration",
+    description: "Built GraphQL services, Temporal workflows, and AWS-backed infrastructure.",
+    year: "2026",
+  },
+  {
     label: "ONJI Software Engineer Intern",
     title: "Software Engineer Intern, ONJI Softwares Pvt Ltd (Demo)",
     description:
       "Developed React Native and Expo components, translated Figma designs into pixel-accurate features, implemented authentication and navigation flows, and collaborated through Git-based Agile delivery.",
     year: "Jun 2025 - Aug 2025",
   },
-  {
-    label: "Current work",
-    title: "Shipping portfolio and engineering polish",
-    description: "Extending backend, AI, and frontend systems while keeping the site recruiter-focused.",
-    year: "2026",
-  },
-  {
-    label: "Data Axle Internship",
-    title: "Backend systems and workflow orchestration",
-    description: "Built GraphQL services, Temporal workflows, and AWS-backed infrastructure.",
-    year: "2026",
-  },
+  
   {
     label: "Deepfake Project",
     title: "Multimodal detection system",
@@ -395,12 +388,6 @@ export const timeline = [
     year: "2024",
   },
   {
-    label: "NCC",
-    title: "Sergeant, C Certificate",
-    description: "Led teams, coordinated activities, and built discipline through cadet responsibilities.",
-    year: "2024",
-  },
-  {
     label: "Dronaid",
     title: "Electronics team contributor",
     description: "Worked on sensor integration, embedded systems, and flight testing support.",
@@ -410,7 +397,7 @@ export const timeline = [
 
 export const currentlyBuilding = [
   "A more robust RAG evaluation workflow with cleaner metrics reporting.",
-  "A stronger backend systems portfolio narrative with quantified outcomes.",
+  "Adding proper evaluation reports and failure-case notes to the RAG project.",
   "Deeper understanding of distributed systems, observability, and cloud operations.",
 ] as const;
 

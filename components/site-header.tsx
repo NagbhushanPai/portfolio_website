@@ -24,11 +24,11 @@ export function SiteHeader() {
   return (
     <>
       <header className="fixed left-4 right-4 top-4 z-40 mx-auto w-[calc(100vw-2rem)] max-w-6xl sm:left-6 sm:right-6 sm:w-[calc(100vw-3rem)] lg:left-1/2 lg:right-auto lg:w-[min(100vw-3rem,72rem)] lg:-translate-x-1/2">
-        <div className="border border-black/5 bg-white/90 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-black/55">
-          <div className="flex items-center justify-between gap-3 rounded-[1.25rem] px-3 py-2 md:rounded-full md:px-5">
+        <div className="border border-black/8 bg-white/80 shadow-[0_6px_18px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-black/55">
+          <div className="flex items-center justify-between gap-3 rounded-[1rem] px-3 py-2.5 md:rounded-full md:px-5">
             <div>
-              <p className="text-sm font-semibold">{siteConfig.name}</p>
-              <p className="hidden text-xs text-neutral-500 md:block">{siteConfig.tagline}</p>
+              <p className="text-sm font-semibold text-neutral-900 dark:text-white">{siteConfig.name}</p>
+              <p className="hidden text-[11px] text-neutral-500 md:block dark:text-neutral-400">{siteConfig.tagline}</p>
             </div>
 
             <nav aria-label="Primary" className="hidden items-center gap-5 text-sm text-neutral-600 dark:text-neutral-300 md:flex">

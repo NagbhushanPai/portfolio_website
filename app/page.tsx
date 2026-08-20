@@ -4,13 +4,10 @@ import { SiteHeader } from "@/components/site-header";
 import {
   currentlyBuilding,
   contactLinks,
-  blogPosts,
   experience,
   heroHighlights,
-  heroStats,
   projects,
   siteConfig,
-  timeline,
 } from "@/lib/portfolio-data";
 
 function SectionHeading({
@@ -46,83 +43,84 @@ export default function Home() {
   };
 
   return (
-    <main id="top" className="min-h-screen overflow-x-clip bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_34%),linear-gradient(to_bottom,_#ffffff,_#f7f7f5)] text-neutral-950 dark:bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.07),_transparent_30%),linear-gradient(to_bottom,_#0a0a0a,_#111111)] dark:text-neutral-50">
+    <main id="top" className="min-h-screen overflow-x-clip bg-[#f7f4ee] text-neutral-950 dark:bg-[#0d0d0d] dark:text-neutral-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
       <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pb-20 pt-6 sm:px-6 md:px-10 lg:px-12">
         <SiteHeader />
 
-        <section className="grid gap-10 pb-18 pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:pb-24">
+        <section className="grid gap-8 pb-16 pt-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:gap-10 lg:pb-20">
           <FadeIn className="min-w-0 max-w-3xl">
-            <p className="inline-flex rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium tracking-[0.22em] text-neutral-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
-              SOFTWARE ENGINEER
+            <p className="inline-flex border-l-2 border-neutral-950 pl-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-neutral-600 dark:border-neutral-50 dark:text-neutral-300">
+              Software engineer
             </p>
-            <h1 className="mt-6 max-w-full break-words text-[clamp(2.6rem,12vw,4.6rem)] font-semibold tracking-tight leading-[0.95] text-balance sm:text-6xl lg:text-7xl">
-              Building scalable backend systems and AI-powered products with calm, production-minded engineering.
+            <h1 className="mt-6 max-w-full break-words text-[clamp(2.7rem,8vw,5rem)] font-semibold tracking-[-0.06em] text-neutral-950 leading-[0.92] dark:text-neutral-50">
+              I build backend systems that are useful, reliable, and easy to reason about.
             </h1>
-            <p className="mt-6 max-w-full text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8 dark:text-neutral-400">
-              I design reliable services, data-driven pipelines, and practical ML workflows for recruiters, users, and teams that value systems thinking over surface-level polish.
+            <p className="mt-6 max-w-xl text-base leading-7 text-neutral-600 sm:text-lg dark:text-neutral-400">
+              I like working on the parts of software that hold everything together: APIs, data flow, infrastructure, and the operational details that make systems feel stable in real life.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={siteConfig.resumeUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/15 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10"
+                className="rounded-full border border-neutral-900 bg-neutral-950 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700"
               >
                 Resume
               </a>
               <a
                 href="#projects"
-                className="rounded-full border border-black/10 px-5 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/15 dark:text-neutral-200 dark:hover:bg-white/5"
+                className="rounded-full border border-black/10 bg-white/60 px-4 py-2.5 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:text-neutral-950 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:border-white/20 dark:hover:text-white"
               >
-                View Projects
+                View projects
               </a>
               <a
                 href="#contact"
-                className="rounded-full border border-black/10 px-5 py-3 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/15 dark:text-neutral-200 dark:hover:bg-white/5"
+                className="rounded-full border border-black/10 bg-white/60 px-4 py-2.5 text-sm font-medium text-neutral-700 transition hover:border-black/20 hover:text-neutral-950 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:border-white/20 dark:hover:text-white"
               >
-                Contact Me
+                Contact
               </a>
             </div>
             <div className="mt-10 grid gap-3 sm:grid-cols-2">
               {heroHighlights.map((item) => (
-                <div key={item} className="rounded-2xl border border-black/5 bg-white/80 px-4 py-4 text-sm text-neutral-600 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
+                <div key={item} className="border-t border-black/10 pt-3 text-sm text-neutral-600 dark:border-white/15 dark:text-neutral-300">
                   {item}
                 </div>
               ))}
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1} className="rounded-[2rem] border border-black/5 bg-white/85 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="grid grid-cols-2 gap-3">
-              {heroStats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-black/5 bg-neutral-50 p-4 dark:border-white/10 dark:bg-white/5">
-                  <div className="text-2xl font-semibold">{stat.value}</div>
-                  <div className="mt-1 text-xs uppercase tracking-[0.2em] text-neutral-500">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+          <FadeIn delay={0.1} className="rounded-2xl border border-black/10 bg-white/60 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:border-white/10 dark:bg-white/5">
+            <p className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
+              Recent focus
+            </p>
+            <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
+              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-white" />GraphQL services and API design</li>
+              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-white" />Workflow orchestration and observability</li>
+              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-white" />Redis-backed rate limiting</li>
+              <li className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 dark:bg-white" />LLM evaluation and benchmarking</li>
+            </ul>
           </FadeIn>
         </section>
 
         <section id="about" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="About"
-            title="A portfolio built to read like an engineer, not a resume dump."
-            description="The structure emphasizes outcomes, systems, and signals that matter to hiring teams: scope, reliability, technical depth, and evidence of execution."
+            title="I care about software that is easy to reason about."
+            description="I like clear interfaces, visible failure modes, and enough operational detail that the next person can debug quickly without having to reverse-engineer the system."
           />
         </section>
 
         <section id="currently-building" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
-            eyebrow="Currently Building"
-            title="Active work and learning goals."
-            description="A snapshot of what I&apos;m iterating on right now."
+            eyebrow="Currently building"
+            title="What I’m working on right now."
+            description=""
           />
-          <StaggerList className="mt-8 grid gap-4 md:grid-cols-3">
+          <StaggerList className="mt-8 grid gap-x-8 gap-y-6 md:grid-cols-3">
             {currentlyBuilding.map((item) => (
-              <div key={item} className="rounded-[1.5rem] border border-black/5 bg-white p-5 text-sm text-neutral-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
+              <div key={item} className="border-t border-neutral-900 pt-4 text-sm leading-6 text-neutral-700 dark:border-neutral-50 dark:text-neutral-300">
                 {item}
               </div>
             ))}
@@ -132,40 +130,40 @@ export default function Home() {
         <section id="experience" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Experience"
-            title="Engineering work with real systems pressure."
-            description="The experience section leads with backend ownership, workflow reliability, and product impact."
+            title="Work experience"
+            description=""
           />
           <div className="mt-10 grid gap-6">
             {experience.map((item) => (
               <FadeIn key={`${item.company}-${item.role}`}>
-                <article className="rounded-[1.75rem] border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-white/5">
+                <article className="border-t border-black/10 py-6 dark:border-white/10">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold">{item.company}</h3>
+                      <h3 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-neutral-50">{item.company}</h3>
                       <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{item.role}</p>
                     </div>
-                    <div className="text-sm text-neutral-500">
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400">
                       <div>{item.duration}</div>
                       <div>{item.location}</div>
                     </div>
                   </div>
-                  <div className="mt-5 grid gap-3 md:grid-cols-2">
+                  <div className="mt-5 grid gap-x-8 gap-y-3 md:grid-cols-2">
                     {item.achievements.map((achievement) => (
-                      <div key={achievement} className="rounded-2xl bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-700 dark:bg-white/5 dark:text-neutral-300">
+                      <div key={achievement} className="border-l border-neutral-300 pl-4 text-sm leading-6 text-neutral-700 dark:border-neutral-700 dark:text-neutral-300">
                         {achievement}
                       </div>
                     ))}
                   </div>
                   <div className="mt-5 grid gap-3 md:grid-cols-2">
                     {item.impact.map((impact) => (
-                      <div key={impact} className="rounded-2xl border border-black/5 px-4 py-3 text-sm leading-6 text-neutral-600 dark:border-white/10 dark:text-neutral-400">
+                      <div key={impact} className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
                         {impact}
                       </div>
                     ))}
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {item.techStack.map((tech) => (
-                      <span key={tech} className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600 dark:border-white/10 dark:text-neutral-300">
+                      <span key={tech} className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-[0.72rem] uppercase tracking-[0.08em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
                         {tech}
                       </span>
                     ))}
@@ -178,7 +176,7 @@ export default function Home() {
                         rel="noreferrer noopener"
                         className="inline-flex rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/10 dark:text-neutral-200 dark:hover:bg-white/5"
                       >
-                        View Demo
+                        View demo
                       </a>
                     </div>
                   ) : null}
@@ -191,20 +189,20 @@ export default function Home() {
         <section id="projects" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Projects"
-            title="Side Projects built over the years."
-            description="Each project card shows the problem, solution, stack, results, and links."
+            title="A few projects I’ve built over the years."
+            description=""
           />
-          <StaggerList className="mt-10 grid gap-6 md:grid-cols-2">
+          <StaggerList className="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-2">
             {projects.map((project) => (
-              <article key={project.slug} className="rounded-[1.75rem] border border-black/5 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+              <article key={project.slug} className="border-t border-neutral-900 pt-5 dark:border-neutral-50">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-xl font-semibold">{project.name}</h3>
+                    <h3 className="text-xl font-semibold tracking-[-0.03em] text-neutral-950 dark:text-neutral-50">{project.name}</h3>
                     <p className="mt-2 text-sm leading-7 text-neutral-600 dark:text-neutral-400">{project.summary}</p>
                   </div>
                   <a
                     href={`/projects/${project.slug}`}
-                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 text-neutral-700 transition hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/10 dark:text-neutral-200 dark:hover:bg-white/5"
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white/60 text-neutral-700 transition hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/5"
                     aria-label={`Open ${project.name} details`}
                   >
                     <ChevronRightIcon className="h-4 w-4" />
@@ -212,24 +210,16 @@ export default function Home() {
                 </div>
                 <div className="mt-5 space-y-3 text-sm">
                   <div>
-                    <span className="font-medium text-neutral-950 dark:text-neutral-100">Problem: </span>
-                    <span className="text-neutral-600 dark:text-neutral-400">{project.problem}</span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-neutral-950 dark:text-neutral-100">Solution: </span>
+                    <span className="font-medium text-neutral-950 dark:text-neutral-100">Built: </span>
                     <span className="text-neutral-600 dark:text-neutral-400">{project.solution}</span>
                   </div>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.metrics.map((metric) => (
-                    <span key={metric} className="rounded-full bg-neutral-950 px-3 py-1 text-xs text-white dark:bg-white dark:text-neutral-950">
-                      {metric}
-                    </span>
-                  ))}
-                </div>
+                <p className="mt-5 border-l border-neutral-300 pl-4 text-sm text-neutral-600 dark:border-neutral-700 dark:text-neutral-400">
+                  {project.metrics[0]}
+                </p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
-                    <span key={tech} className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600 dark:border-white/10 dark:text-neutral-300">
+                    <span key={tech} className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-[0.7rem] uppercase tracking-[0.08em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300">
                       {tech}
                     </span>
                   ))}
@@ -252,14 +242,12 @@ export default function Home() {
                     >
                       Live demo
                     </a>
-                  ) : (
-                    <span className="text-neutral-400">Live demo not available</span>
-                  )}
+                  ) : null}
                   <a
                     href={`/projects/${project.slug}`}
                     className="font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100"
                   >
-                    View case study
+                    Case study
                   </a>
                 </div>
               </article>
@@ -267,69 +255,22 @@ export default function Home() {
           </StaggerList>
         </section>
 
-        <section id="blog" className="border-t border-black/5 py-16 dark:border-white/10">
-          <SectionHeading
-            eyebrow="Blog"
-            title="Concise posts that for fun"
-            description="These posts stay short and informative"
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {blogPosts.map((post) => (
-              <article key={post.slug} className="rounded-[1.75rem] border border-black/5 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
-                <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">{post.publishedOn}</p>
-                <h3 className="mt-3 text-xl font-semibold">{post.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-400">{post.summary}</p>
-                <a
-                  href={post.fullPostUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mt-5 inline-flex text-sm font-medium text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-100"
-                >
-                  Read the full post on Hashnode
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="timeline" className="border-t border-black/5 py-16 dark:border-white/10">
-          <SectionHeading
-            eyebrow="Timeline"
-            title="The Professional arc."
-            description="Scan this quickly to understand growth across leadership, research, and shipping work."
-          />
-          <div className="mt-10 space-y-4">
-            {timeline.map((item) => (
-              <FadeIn key={item.title}>
-                <article className="grid gap-4 rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm md:grid-cols-[110px_1fr] dark:border-white/10 dark:bg-white/5">
-                  <div className="text-sm font-medium text-neutral-500">{item.year}</div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">{item.label}</p>
-                    <h3 className="mt-1 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-neutral-600 dark:text-neutral-400">{item.description}</p>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
-          </div>
-        </section>
-
         <section id="contact" className="border-t border-black/5 py-16 dark:border-white/10">
           <SectionHeading
             eyebrow="Contact"
-            title="Open to backend, AI, and systems-focused opportunities."
-            description="Keep the contact block short and action-oriented so recruiters can reach out quickly."
+            title="Looking for a team with hard backend problems."
+            description="Email is best. GitHub has the code, and LinkedIn has the work history."
           />
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-x-8 gap-y-6 md:grid-cols-3">
             {contactLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target={link.label === "Email" ? undefined : "_blank"}
                 rel={link.label === "Email" ? undefined : "noreferrer noopener"}
-                className="rounded-[1.5rem] border border-black/5 bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/15 dark:border-white/10 dark:bg-white/5"
+                className="border-t border-black/10 py-4 transition hover:border-black dark:border-white/10 dark:hover:border-white"
               >
-                <div className="text-xs uppercase tracking-[0.24em] text-neutral-500">{link.label}</div>
+                <div className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400">{link.label}</div>
                 <div className="mt-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">{link.value}</div>
               </a>
             ))}
@@ -337,7 +278,7 @@ export default function Home() {
         </section>
 
         <footer className="border-t border-black/5 pt-8 text-sm text-neutral-500 dark:border-white/10">
-          Designed for clarity, credibility, and fast reading.
+          Nagbhushan Pai · India
         </footer>
       </div>
     </main>

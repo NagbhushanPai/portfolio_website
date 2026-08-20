@@ -3,15 +3,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --background: #f7f4ee;
+  --foreground: #171717;
+  --muted: #5d5a55;
+  --panel: rgba(255, 255, 255, 0.78);
+  --line: rgba(23, 23, 23, 0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "SF Pro Display", "Inter", "Segoe UI", Arial, sans-serif;
-  --font-mono: "Geist Mono", "SFMono-Regular", "Consolas", monospace;
+  --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", "Consolas", monospace;
 }
 
 * {
@@ -27,8 +30,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  line-height: 1.6;
   margin: 0;
   overflow-x: clip;
+  letter-spacing: -0.02em;
 }
 
 a {
@@ -42,10 +47,10 @@ a {
 
 .motion-reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(8px);
   transition:
-    opacity 420ms ease-out,
-    transform 420ms ease-out;
+    opacity 280ms ease-out,
+    transform 280ms ease-out;
 }
 
 .motion-reveal-visible {
@@ -55,15 +60,13 @@ a {
 
 .motion-stagger > * {
   opacity: 0;
-  transform: translateY(10px);
+  transform: none;
   transition:
-    opacity 360ms ease-out,
-    transform 360ms ease-out;
+    opacity 220ms ease-out;
 }
 
 .motion-stagger-visible > * {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .motion-stagger-visible > *:nth-child(1) {
