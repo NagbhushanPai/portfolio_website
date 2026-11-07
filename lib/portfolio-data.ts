@@ -430,3 +430,129 @@ export const contactLinks = [
   { label: "GitHub", value: "github.com/NagbhushanPai", href: siteConfig.github },
   { label: "LinkedIn", value: "linkedin.com/in/nagbhushan-pai", href: siteConfig.linkedin },
 ] as const;
+
+export type JourneyEntry = {
+  id: string;
+  dateRange: string;
+  locationType: "On-site" | "Remote" | "Hybrid";
+  role: string;
+  company: string;
+  pullQuote: string;
+  responsibilities: string[];
+  skills: string[];
+};
+
+export const journey: JourneyEntry[] = [
+  {
+    id: "data-axle",
+    dateRange: "Jan 2026 — Present",
+    locationType: "On-site",
+    role: "Software Development Engineer (Backend) Intern",
+    company: "Data Axle",
+    pullQuote:
+      "The best backend systems are the ones nobody thinks about, because they never break.",
+    responsibilities: [
+      "Built a standalone DirectMail microservice and reduced reliance on the monolith.",
+      "Designed GraphQL APIs with pagination, filtering, and role-based access control.",
+      "Implemented resilient Temporal workflows for long-running business processes.",
+      "Deployed services on AWS with CloudWatch logging and monitoring.",
+    ],
+    skills: ["Python", "Django", "GraphQL", "Graphene", "Temporal", "AWS", "Docker"],
+  },
+  {
+    id: "onji",
+    dateRange: "Jun 2025 — Aug 2025",
+    locationType: "Remote",
+    role: "Software Engineer Intern",
+    company: "ONJI Softwares Pvt Ltd",
+    pullQuote:
+      "Translating a design file into a screen that actually feels right on a phone is its own kind of engineering.",
+    responsibilities: [
+      "Built reusable cross-platform UI components for Android and iOS.",
+      "Converted Figma designs into production-ready screens.",
+      "Implemented secure authentication and navigation flows.",
+      "Optimized responsiveness and startup performance.",
+    ],
+    skills: ["React Native", "Expo", "JavaScript", "REST APIs", "Git"],
+  },
+];
+
+export type Milestone = {
+  id: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  description: string;
+};
+
+export const milestones: Milestone[] = [
+  {
+    id: "sih-2024",
+    badge: "Finalist",
+    title: "Smart India Hackathon 2024",
+    subtitle: "National-level finalist",
+    description:
+      "Built and presented an AI-powered multimodal solution to a panel of evaluators as a national finalist team.",
+  },
+  {
+    id: "deepfake-accuracy",
+    badge: "92% Accuracy",
+    title: "Deepfake Detection System",
+    subtitle: "CNN + Vision Transformer fusion",
+    description:
+      "Shipped a real-time multimodal detection pipeline combining spatial and temporal features for manipulated media.",
+  },
+  {
+    id: "rate-limiter",
+    badge: "10K+ req/sec",
+    title: "Distributed Rate Limiter",
+    subtitle: "Redis + Lua at scale",
+    description:
+      "Designed an atomic, horizontally scalable traffic control system with sub-5ms decision latency.",
+  },
+  {
+    id: "ncc",
+    badge: "Sergeant",
+    title: "NCC — C Certificate",
+    subtitle: "National Cadet Corps",
+    description:
+      "Completed the full NCC training track and earned the C Certificate along with the rank of Sergeant.",
+  },
+  {
+    id: "iit-bhu",
+    badge: "Research",
+    title: "IIT BHU Research Contribution",
+    subtitle: "Applied research project",
+    description:
+      "Contributed to an applied research project as an external collaborator alongside the IIT BHU team.",
+  },
+];
+
+export const toolsMarqueeRows: readonly [readonly string[], readonly string[]] = [
+  ["Python", "Django", "GraphQL", "Temporal", "AWS", "Docker", "Redis", "PostgreSQL", "FastAPI"],
+  ["TypeScript", "React", "Next.js", "PyTorch", "FAISS", "Git", "Linux", "Kafka", "Tailwind CSS"],
+] as const;
+
+export type TechStackCategory = {
+  category: string;
+  tools: string[];
+};
+
+export const techStackCategories: TechStackCategory[] = [
+  {
+    category: "Full Stack Web/App",
+    tools: ["TypeScript", "React", "Next.js", "Django", "GraphQL", "REST APIs"],
+  },
+  {
+    category: "Distributed Systems",
+    tools: ["Redis", "Kafka", "Temporal", "Docker", "Lua"],
+  },
+  {
+    category: "Machine Learning",
+    tools: ["PyTorch", "FAISS", "Sentence Transformers", "Vision Transformers", "OpenCV"],
+  },
+  {
+    category: "Cloud & Infrastructure",
+    tools: ["AWS", "CloudWatch", "PostgreSQL", "Git", "Linux"],
+  },
+];

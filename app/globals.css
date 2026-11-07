@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --background: #f7f4ee;
-  --foreground: #171717;
-  --muted: #5d5a55;
-  --panel: rgba(255, 255, 255, 0.78);
-  --line: rgba(23, 23, 23, 0.08);
+  --background: #f6f3ec;
+  --foreground: #16140f;
+  --muted: #6b6659;
+  --panel: rgba(255, 255, 255, 0.6);
+  --line: rgba(22, 20, 15, 0.1);
+  --accent: #e8b73b;
+  --font-serif: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "SFMono-Regular", "Consolas", monospace;
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
 }
 
 * {
@@ -24,6 +27,22 @@
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 body {
@@ -33,7 +52,6 @@ body {
   line-height: 1.6;
   margin: 0;
   overflow-x: clip;
-  letter-spacing: -0.02em;
 }
 
 a {
@@ -42,49 +60,95 @@ a {
 }
 
 ::selection {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(232, 183, 59, 0.35);
 }
 
-.motion-reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 280ms ease-out,
-    transform 280ms ease-out;
+.font-serif-display {
+  font-family: var(--font-serif);
 }
 
-.motion-reveal-visible {
-  opacity: 1;
-  transform: translateY(0);
+.label-meta {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.motion-stagger > * {
-  opacity: 0;
-  transform: none;
-  transition:
-    opacity 220ms ease-out;
+/* Film-grain noise overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
-.motion-stagger-visible > * {
-  opacity: 1;
+/* Marquee */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-.motion-stagger-visible > *:nth-child(1) {
-  transition-delay: 0ms;
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-.motion-stagger-visible > *:nth-child(2) {
-  transition-delay: 80ms;
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 38s linear infinite;
 }
 
-.motion-stagger-visible > *:nth-child(3) {
-  transition-delay: 160ms;
+.marquee-track-reverse {
+  animation-name: marquee-right;
+  animation-duration: 44s;
 }
 
-.motion-stagger-visible > *:nth-child(4) {
-  transition-delay: 240ms;
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
 
-.motion-stagger-visible > *:nth-child(5) {
-  transition-delay: 320ms;
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Horizontal scroll-snap rows */
+.scroll-snap-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.scroll-snap-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Contribution heatmap */
+.heatmap-cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
 }
