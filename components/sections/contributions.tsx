@@ -10,7 +10,7 @@ type Day = { date: string; contributionCount: number; weekday: number };
 type Week = { contributionDays: Day[] };
 type ContributionsResponse = { total: number; weeks: Week[] } | { error: string };
 
-const LEVELS = ["#ebe7dd", "#e2c98a", "#e8b73b", "#c98f1c", "#8a5f0c"];
+const LEVELS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
 
 function levelFor(count: number) {
   if (count === 0) return LEVELS[0];
@@ -30,8 +30,10 @@ export function Contributions() {
       .catch(() => setData({ error: "Failed to load" }));
   }, []);
 
+  if (data && "error" in data) return null;
+
   return (
-    <section className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
+    <section id="contributions" className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
       <Reveal>
         <SectionLabel index="02" label="Activity" />
       </Reveal>
@@ -39,11 +41,9 @@ export function Contributions() {
         Building in <span className="not-italic font-medium">public,</span> most days.
       </SplitHeading>
 
-      <Reveal className="mt-10 overflow-x-auto rounded-2xl border border-black/10 bg-white/50 p-6" delay={0.1}>
+      <Reveal className="mt-10 rounded-2xl border border-black/10 bg-white/50 p-6" delay={0.1}>
         {!data ? (
           <div className="h-[110px] animate-pulse rounded-lg bg-black/5" aria-hidden="true" />
-        ) : "error" in data ? (
-          <p className="text-sm text-[var(--muted)]">Live contribution data is unavailable right now.</p>
         ) : (
           <>
             <p className="text-sm text-[var(--muted)]">
@@ -52,21 +52,28 @@ export function Contributions() {
               </span>{" "}
               contributions in the last year
             </p>
-            <div className="mt-4 flex w-max gap-1">
+            <div
+              className="heatmap-grid mt-4 grid w-full gap-[clamp(2px,0.35vw,5px)]"
+              style={{ gridTemplateColumns: `repeat(${data.weeks.length}, minmax(0, 1fr))` }}
+              aria-label="GitHub contributions for the last year"
+            >
               {data.weeks.map((week, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  {week.contributionDays.map((day) => (
+                <div key={i} className="grid min-w-0 grid-rows-7 gap-[clamp(2px,0.35vw,5px)]">
+                  {week.contributionDays.map((day, dayIndex) => (
                     <div
                       key={day.date}
-                      className="heatmap-cell"
+                      className="heatmap-cell heatmap-cell-animated"
                       title={`${day.contributionCount} contributions on ${day.date}`}
-                      style={{ background: levelFor(day.contributionCount) }}
+                      style={{
+                        background: levelFor(day.contributionCount),
+                        animationDelay: `${(i * 7 + dayIndex) * 8}ms`,
+                      }}
                     />
                   ))}
                 </div>
               ))}
             </div>
-            <div className="mt-4 flex items-center gap-2 text-xs text-[var(--muted)]">
+            <div className="heatmap-legend mt-4 flex items-center gap-2 text-xs text-[var(--muted)]">
               <span>Less</span>
               {LEVELS.map((color) => (
                 <span key={color} className="heatmap-cell" style={{ background: color }} />

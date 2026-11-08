@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { getGsap } from "@/lib/gsap";
 
 export function CursorLens() {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -13,16 +14,19 @@ export function CursorLens() {
     if (!isFinePointer || reducedMotion) return;
 
     document.body.style.cursor = "none";
+    const { gsap } = getGsap();
+    const xTo = gsap.quickTo(wrapperRef.current, "x", { duration: 0.22, ease: "power3.out" });
+    const yTo = gsap.quickTo(wrapperRef.current, "y", { duration: 0.22, ease: "power3.out" });
 
     const move = (e: MouseEvent) => {
       const wrapper = wrapperRef.current;
       if (!wrapper) return;
-      wrapper.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      xTo(e.clientX);
+      yTo(e.clientY);
       wrapper.style.opacity = "1";
       const target = e.target as HTMLElement | null;
       const isActive = !!target?.closest("a, button");
-      glowRef.current?.classList.toggle("scale-125", isActive);
-      lensRef.current?.classList.toggle("scale-125", isActive);
+      gsap.to([glowRef.current, lensRef.current], { scale: isActive ? 1.25 : 1, duration: 0.22, ease: "power3.out", overwrite: true });
     };
 
     const handleLeave = () => {
@@ -49,11 +53,11 @@ export function CursorLens() {
     >
       <div
         ref={glowRef}
-        className="absolute left-0 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 blur-2xl transition-transform duration-300 ease-out"
+        className="absolute left-0 top-0 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/70 opacity-70 transition-none"
       />
       <div
         ref={lensRef}
-        className="absolute left-0 top-0 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-transform duration-150 ease-out"
+        className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white transition-none"
         style={{ mixBlendMode: "difference" }}
       />
     </div>

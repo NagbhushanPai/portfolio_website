@@ -1,13 +1,14 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { getGsap, prefersReducedMotion } from "@/lib/gsap";
 import { SectionLabel } from "./section-label";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { journey } from "@/lib/portfolio-data";
 
-function AccordionPanel({ open, children }: { open: boolean; children: React.ReactNode }) {
+function AccordionPanel({ open, children }: { open: boolean; children: ReactNode }) {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -21,16 +22,20 @@ function AccordionPanel({ open, children }: { open: boolean; children: React.Rea
     }
 
     const { gsap } = getGsap();
-    gsap.to(node, {
+    const animation = gsap.to(node, {
       height: open ? "auto" : 0,
       opacity: open ? 1 : 0,
-      duration: 0.4,
+      duration: 0.7,
       ease: "power2.inOut",
     });
+
+    return () => {
+      animation.kill();
+    };
   }, [open]);
 
   return (
-    <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
+    <div ref={contentRef} className="overflow-hidden" style={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}>
       {children}
     </div>
   );
@@ -57,7 +62,7 @@ export function Journey() {
                 type="button"
                 onClick={() => setOpenId(open ? undefined : entry.id)}
                 aria-expanded={open}
-                className="grid w-full grid-cols-1 gap-2 py-6 text-left transition hover:opacity-80 sm:grid-cols-[1fr_2fr] sm:items-center sm:gap-6"
+                className="grid w-full grid-cols-1 gap-2 py-6 text-left transition-[opacity,transform,padding] duration-700 ease-[var(--motion-ease)] hover:translate-x-1 hover:opacity-80 sm:grid-cols-[1fr_2fr] sm:items-center sm:gap-6"
               >
                 <div>
                   <p className="text-sm font-medium">{entry.dateRange}</p>
@@ -69,7 +74,7 @@ export function Journey() {
                     <p className="mt-1 text-sm text-[var(--muted)]">{entry.company}</p>
                   </div>
                   <span
-                    className={`shrink-0 text-lg transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+                    className={`shrink-0 text-lg transition-transform duration-700 ease-[var(--motion-ease)] ${open ? "rotate-45" : ""}`}
                     aria-hidden="true"
                   >
                     +

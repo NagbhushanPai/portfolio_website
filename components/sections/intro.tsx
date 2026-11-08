@@ -1,12 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SectionLabel } from "./section-label";
 import { TechCarousel } from "./tech-carousel";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { heroStats, projects, siteConfig } from "@/lib/portfolio-data";
-
-const bustSrc = "/hero_bust-removebg-preview-Sw9E7wuY.png";
 
 export function Intro() {
   const featuredProjects = projects.slice(0, 2);
@@ -43,7 +40,7 @@ export function Intro() {
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               <div className="rounded-2xl border border-black/10 bg-white/80 p-4">
                 <p className="label-meta">Focus</p>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Backend systems, APIs, and AI products.</p>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Backend systems, APIs, and computer vision.</p>
               </div>
               <div className="rounded-2xl border border-black/10 bg-white/80 p-4">
                 <p className="label-meta">Mode</p>
@@ -105,22 +102,7 @@ export function Intro() {
           </Reveal>
 
           <Reveal className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]" delay={0.2}>
-            <figure className="overflow-hidden rounded-3xl border border-black/10 bg-white/60">
-              <div className="relative aspect-[4/3] bg-[linear-gradient(180deg,rgba(232,183,59,0.16),rgba(255,255,255,0.12))]">
-                <Image
-                  src={bustSrc}
-                  alt="Monochrome Roman bust motif"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 48vw"
-                  className="object-contain p-10 grayscale"
-                />
-              </div>
-              <figcaption className="border-t border-black/10 px-5 py-4 text-sm leading-6 text-[var(--muted)]">
-                A classical form reused as a visual anchor while the rest of the page settles into the archive.
-              </figcaption>
-            </figure>
-
-            <div className="rounded-3xl border border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] p-6">
+            <div className="rounded-3xl border border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] p-6 lg:col-span-2">
               <p className="label-meta">Selected notes</p>
               <div className="mt-4 space-y-4 text-sm leading-7 text-[var(--muted)]">
                 <p>

@@ -22,7 +22,7 @@ export function GsapMarqueeRow({ items, reverse = false }: { items: readonly str
 
     const proxy = { boost: 1 };
     const quickBoost = gsap.quickTo(proxy, "boost", {
-      duration: 0.6,
+      duration: 0.9,
       ease: "power2.out",
       onUpdate: () => tween.timeScale(proxy.boost),
     });
@@ -30,7 +30,7 @@ export function GsapMarqueeRow({ items, reverse = false }: { items: readonly str
     const trigger = ScrollTrigger.create({
       onUpdate: (self) => {
         const velocity = Math.abs(self.getVelocity());
-        quickBoost(1 + Math.min(velocity / 1500, 5));
+        quickBoost(1 + Math.min(velocity / 1800, 1));
       },
     });
 

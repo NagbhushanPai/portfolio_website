@@ -141,16 +141,21 @@ export function Hero() {
       entrance
         .to(eyebrow, { opacity: 1, y: 0, duration: 0.45 }, 0.05)
         .to(bust, { opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)", duration: 1.5 }, 0)
+        .to(states[0], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9 }, 0.1)
         .to(stateLines[0], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.08 }, 0.1)
         .to(body, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 }, 0.75)
         .to(cta, { opacity: 1, y: 0, duration: 0.55 }, 0.95)
         .to(cue, { opacity: 1, y: 0, duration: 0.45 }, 1.05)
+        .to(states[0], { opacity: 0, y: -10, filter: "blur(10px)", duration: 0.75 }, 1.12)
         .to(stateLines[0], { opacity: 0, y: -10, filter: "blur(10px)", duration: 0.75, stagger: 0.08 }, 1.12)
+        .to(states[1], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95 }, 1.26)
         .to(stateLines[1], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95, stagger: 0.08 }, 1.26)
         .to(bust, { x: -14, y: 0, duration: 0.9 }, 1.44)
+        .to(states[1], { opacity: 0, y: -10, filter: "blur(10px)", duration: 0.8 }, 2.26)
         .to(stateLines[1], { opacity: 0, y: -10, filter: "blur(10px)", duration: 0.8, stagger: 0.08 }, 2.26)
+        .to(states[2], { opacity: 1, y: 0, filter: "blur(0px)", duration: 1 }, 2.42)
         .to(stateLines[2], { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.08 }, 2.42)
-        .to(bust, { x: -74, opacity: 0, scale: 0.96, filter: "blur(10px)", duration: 1.05, ease: "power2.inOut" }, 2.62)
+        .to(bust, { x: -34, opacity: 0.28, scale: 0.98, filter: "blur(4px)", duration: 1.05, ease: "power2.inOut" }, 2.62)
         .to(body, { opacity: 1, y: 0, duration: 0.4 }, 2.74)
         .to(cue, { opacity: 0.82, y: 0, duration: 0.4 }, 2.88);
 
@@ -178,7 +183,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="top" ref={heroRef} className="relative min-h-[190vh] px-5 sm:px-8 md:px-12">
+    <section id="top" ref={heroRef} className="relative min-h-[135vh] px-5 sm:px-8 md:px-12">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_30%,rgba(232,183,59,0.12),transparent_28%),radial-gradient(circle_at_35%_55%,rgba(0,0,0,0.06),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.22),transparent_24%)]"
@@ -207,7 +212,8 @@ export function Hero() {
               ref={eyebrowRef}
               className="label-meta mx-auto max-w-max rounded-full border border-black/10 bg-white/45 px-4 py-2 backdrop-blur-sm"
             >
-              {siteConfig.role} · editorial portfolio
+              <span className="sm:hidden">{siteConfig.role} · systems + AI</span>
+              <span className="hidden sm:inline">{siteConfig.role} · systems, APIs + AI</span>
             </p>
 
             <div className="relative mt-8 min-h-[clamp(10rem,22vw,15rem)] sm:min-h-[clamp(12rem,24vw,18rem)]">
@@ -245,10 +251,10 @@ export function Hero() {
               ))}
             </div>
 
-            <p ref={bodyRef} className="mx-auto mt-8 max-w-2xl text-balance text-base leading-8 text-[var(--muted)] sm:text-lg">
+            <p ref={bodyRef} className="relative z-20 mx-auto mt-8 max-w-2xl rounded-2xl bg-[rgba(246,243,236,0.82)] px-4 py-2 text-balance text-base leading-8 text-[var(--muted)] backdrop-blur-sm sm:text-lg">
               I&apos;m {siteConfig.name}, a {siteConfig.role.toLowerCase()} building systems that hold up under real
-              traffic and AI products that ship past the demo stage. The opening sequence moves like a film reel,
-              then settles into a long-form portfolio.
+              traffic, APIs, and computer vision products that ship past the demo stage. The opening sequence introduces
+              the work, then settles into a readable portfolio.
             </p>
 
             <div ref={ctaRef} className="mt-10 flex flex-wrap items-center justify-center gap-3">

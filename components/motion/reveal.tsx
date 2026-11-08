@@ -24,9 +24,10 @@ export function Reveal({ children, className = "", stagger = false, delay = 0, y
     const targets = stagger ? Array.from(node.children) : node;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
+      if (stagger) gsap.set(node, { opacity: 1 });
+      gsap.set(targets, { opacity: 0, y });
+      gsap.to(
         targets,
-        { opacity: 0, y },
         {
           opacity: 1,
           y: 0,
@@ -52,7 +53,7 @@ export function Reveal({ children, className = "", stagger = false, delay = 0, y
   }, [stagger, delay, y]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={`motion-reveal ${className}`}>
       {children}
     </div>
   );

@@ -56,28 +56,13 @@ export type BlogPost = {
 export const siteConfig = {
   name: "Nagbhushan Pai",
   role: "Software Engineer",
-  tagline: "Backend systems, APIs, and AI products.",
+  tagline: "Backend systems, APIs, and computer vision products.",
   email: "nagbhushanpai707@gmail.com",
   github: "https://github.com/NagbhushanPai",
   linkedin: "https://www.linkedin.com/in/nagbhushan-pai/",
   resumeUrl: "/resume.pdf",
   location: "India",
 };
-
-export const navLinks = [
-  { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-] as const;
-
-export const heroHighlights = [
-  "Backend systems",
-  "Distributed systems",
-  "AI evaluation workflows",
-  "Cloud deployment",
-] as const;
 
 export const heroStats = [
   { value: "10K+", label: "requests/sec" },

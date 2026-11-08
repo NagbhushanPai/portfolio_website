@@ -35,7 +35,7 @@ export function TechCarousel() {
         </div>
       </div>
 
-      <div key={current.category} className="mt-6 min-h-[7rem] animate-[fade-slide_0.35s_ease-out]">
+      <div key={current.category} className="mt-6 min-h-[7rem] transition-[opacity,transform] duration-700 ease-[var(--motion-ease)]">
         <h3 className="font-serif-display text-2xl italic">{current.category}</h3>
         <div className="mt-4 flex flex-wrap gap-2">
           {current.tools.map((tool) => (
@@ -48,13 +48,6 @@ export function TechCarousel() {
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes fade-slide {
-          from { opacity: 0; transform: translateX(8px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
     </div>
   );
 }

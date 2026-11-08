@@ -122,21 +122,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {/* RIGHT: independently scrolling screenshots */}
         <div className="flex-1 px-5 py-10 sm:px-8 md:px-12 lg:py-16">
           <div className="space-y-8">
-            {project.screenshots?.length ? (
-              project.screenshots.map((shot) => (
-                <figure key={shot.label} className="overflow-hidden rounded-2xl border border-black/10 bg-white/50">
-                  <div className="flex aspect-[16/10] items-center justify-center border-b border-black/10 bg-neutral-100 text-sm text-neutral-400">
-                    {shot.alt}
-                  </div>
-                  <figcaption className="p-5">
-                    <p className="text-sm font-medium">{shot.label}</p>
-                    <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{shot.caption}</p>
-                  </figcaption>
-                </figure>
-              ))
-            ) : (
-              <p className="text-sm text-[var(--muted)]">Screenshots coming soon.</p>
-            )}
+            <p className="text-sm text-[var(--muted)]">Project visuals are being prepared.</p>
           </div>
         </div>
       </div>

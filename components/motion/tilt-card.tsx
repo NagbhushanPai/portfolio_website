@@ -12,11 +12,10 @@ export function TiltCard({ children, className = "" }: { children: ReactNode; cl
     if (!node || prefersReducedMotion() || !window.matchMedia("(pointer: fine)").matches) return;
 
     const { gsap } = getGsap();
+    gsap.set(node, { transformPerspective: 800, transformStyle: "preserve-3d" });
     const rotateX = gsap.quickTo(node, "rotateX", { duration: 0.5, ease: "power3.out" });
     const rotateY = gsap.quickTo(node, "rotateY", { duration: 0.5, ease: "power3.out" });
     const lift = gsap.quickTo(node, "y", { duration: 0.5, ease: "power3.out" });
-
-    gsap.set(node, { transformPerspective: 800, transformStyle: "preserve-3d" });
 
     const move = (e: MouseEvent) => {
       const rect = node.getBoundingClientRect();
@@ -43,8 +42,10 @@ export function TiltCard({ children, className = "" }: { children: ReactNode; cl
   }, []);
 
   return (
-    <div ref={ref} className={className}>
-      {children}
+    <div className={className}>
+      <div ref={ref} className="h-full">
+        {children}
+      </div>
     </div>
   );
 }

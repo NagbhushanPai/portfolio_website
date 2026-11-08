@@ -34,7 +34,6 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
         linesClass: "split-line",
       });
 
-      gsap.set(split.lines, { yPercent: 110 });
       gsap.to(split.lines, {
         yPercent: 0,
         duration: 0.9,

@@ -3,12 +3,14 @@
 :root {
   --background: #f6f3ec;
   --foreground: #16140f;
-  --muted: #6b6659;
+  --muted: #4f4a3f;
   --panel: rgba(255, 255, 255, 0.6);
   --line: rgba(22, 20, 15, 0.1);
   --accent: #e8b73b;
   --font-serif: "Fraunces", "Iowan Old Style", "Georgia", serif;
   --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --motion-duration: 0.7s;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -54,9 +56,16 @@ body {
   overflow-x: clip;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer base {
+  a {
+    text-decoration: none;
+  }
+
+  a,
+  button,
+  [role="button"] {
+    cursor: none;
+  }
 }
 
 ::selection {
@@ -80,53 +89,33 @@ a {
 .grain-overlay {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
+  opacity: 0.012;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-}
-
-/* Marquee */
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-left 38s linear infinite;
-}
-
-.marquee-track-reverse {
-  animation-name: marquee-right;
-  animation-duration: 44s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
 }
 
 .marquee-mask {
   -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.motion-reveal {
+  opacity: 0;
+}
+
+.split-line {
+  display: block;
+  transform: translateY(110%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reveal,
+  .split-line {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Horizontal scroll-snap rows */
@@ -148,7 +137,34 @@ a {
 
 /* Contribution heatmap */
 .heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 2px;
+}
+
+.heatmap-legend .heatmap-cell {
   width: 11px;
   height: 11px;
-  border-radius: 2px;
+  flex: 0 0 11px;
+}
+
+@keyframes heatmap-cell-in {
+  from {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.heatmap-cell-animated {
+  animation: heatmap-cell-in 0.7s var(--motion-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heatmap-cell-animated {
+    animation: none;
+  }
 }
