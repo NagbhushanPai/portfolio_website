@@ -62,7 +62,7 @@ export function Journey() {
                 type="button"
                 onClick={() => setOpenId(open ? undefined : entry.id)}
                 aria-expanded={open}
-                className="grid w-full grid-cols-1 gap-2 py-6 text-left transition-[opacity,transform,padding] duration-700 ease-[var(--motion-ease)] hover:translate-x-1 hover:opacity-80 sm:grid-cols-[1fr_2fr] sm:items-center sm:gap-6"
+                className="grid w-full grid-cols-1 gap-2 py-6 text-left transition-[opacity,transform] duration-300 ease-out hover:translate-x-1 hover:opacity-80 sm:grid-cols-[1fr_2fr] sm:items-center sm:gap-6"
               >
                 <div>
                   <p className="text-sm font-medium">{entry.dateRange}</p>
@@ -74,7 +74,7 @@ export function Journey() {
                     <p className="mt-1 text-sm text-[var(--muted)]">{entry.company}</p>
                   </div>
                   <span
-                    className={`shrink-0 text-lg transition-transform duration-700 ease-[var(--motion-ease)] ${open ? "rotate-45" : ""}`}
+                    className={`shrink-0 text-lg transition-transform duration-300 ease-out ${open ? "rotate-45" : ""}`}
                     aria-hidden="true"
                   >
                     +

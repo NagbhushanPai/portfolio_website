@@ -14,6 +14,7 @@ export function CursorLens() {
     if (!isFinePointer || reducedMotion) return;
 
     document.body.style.cursor = "none";
+    document.documentElement.classList.add("custom-cursor-active");
     const { gsap } = getGsap();
     const xTo = gsap.quickTo(wrapperRef.current, "x", { duration: 0.22, ease: "power3.out" });
     const yTo = gsap.quickTo(wrapperRef.current, "y", { duration: 0.22, ease: "power3.out" });
@@ -42,6 +43,7 @@ export function CursorLens() {
       window.removeEventListener("mousemove", move);
       document.documentElement.removeEventListener("mouseleave", handleLeave);
       document.body.style.cursor = "";
+      document.documentElement.classList.remove("custom-cursor-active");
     };
   }, []);
 
@@ -53,7 +55,8 @@ export function CursorLens() {
     >
       <div
         ref={glowRef}
-        className="absolute left-0 top-0 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/70 opacity-70 transition-none"
+        className="absolute left-0 top-0 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 opacity-80 transition-none"
+        style={{ mixBlendMode: "difference" }}
       />
       <div
         ref={lensRef}

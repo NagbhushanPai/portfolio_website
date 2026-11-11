@@ -2,7 +2,8 @@ export type ProjectSlug =
   | "distributed-rate-limiter"
   | "mini-kafka"
   | "rag-evaluation-system"
-  | "deepfake-detection-system";
+  | "deepfake-detection-system"
+  | "devflow";
 
 export type Project = {
   slug: ProjectSlug;
@@ -66,9 +67,7 @@ export const siteConfig = {
 
 export const heroStats = [
   { value: "10K+", label: "requests/sec" },
-  { value: "99%", label: "workflow reliability" },
   { value: "92%", label: "deepfake accuracy" },
-  { value: "4", label: "featured projects" },
 ] as const;
 
 export const experience: ExperienceItem[] = [
@@ -256,6 +255,49 @@ export const projects: Project[] = [
         label: "Inference",
         alt: "Deepfake detection model inference pipeline",
         caption: "Multimodal prediction flow and confidence scoring.",
+      },
+    ],
+  },
+  {
+    slug: "devflow",
+    name: "DevFlow",
+    summary:
+      "A Jira-style project and issue tracker with organisations, sprints, a Kanban board, and real-time updates, built on ASP.NET Core and Angular.",
+    architecture: [
+      "ASP.NET Core API split into Domain, Application, Infrastructure, and API layers following Clean Architecture, with commands and handlers in the Application layer.",
+      "Angular frontend talks to the REST API over JWT; SignalR pushes issue, comment, and notification events to connected clients.",
+      "Data is isolated per organisation; Azure Blob Storage handles attachments, with Redis-compatible caching that falls back to in-memory locally.",
+      "A separate MVC/Razor admin module covers legacy-style reporting.",
+    ],
+    problem:
+      "Small engineering teams need one place to plan sprints, track bugs, and see who owns what without the weight of enterprise tooling.",
+    solution:
+      "Built a multi-tenant tracker with role-based access, issues and comments, sprints, a drag-and-drop Kanban board, real-time notifications, and an audit log, packaged with Docker and CI.",
+    challenges: [
+      "Keeping one organisation's data isolated from another across every query and endpoint.",
+      "Keeping the board and comments in sync across clients with SignalR without double-applying updates.",
+      "Making caching optional so the app runs locally with no Redis.",
+    ],
+    benchmarks: [],
+    lessonsLearned: [
+      "Layer boundaries pay off most when you add integrations like email, blob storage, and GitHub.",
+      "Authorization rules belong in the application layer so they are tested once.",
+    ],
+    techStack: ["ASP.NET Core", "Angular", "SQL Server", "SignalR", "Docker", "GitHub Actions"],
+    metrics: ["JWT + role-based access", "Real-time updates (SignalR)", "Unit + integration tests", "CI on GitHub Actions"],
+    githubUrl: "https://github.com/NagbhushanPai/DevFlow",
+    liveUrl: undefined,
+    featured: true,
+    screenshots: [
+      {
+        label: "Kanban board",
+        alt: "DevFlow Kanban board",
+        caption: "Backlog to Done with drag-and-drop.",
+      },
+      {
+        label: "Issue detail",
+        alt: "DevFlow issue view",
+        caption: "Comments, assignee, sprint, and activity history.",
       },
     ],
   },

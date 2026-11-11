@@ -8,9 +8,10 @@ import { TiltCard } from "@/components/motion/tilt-card";
 import { projects } from "@/lib/portfolio-data";
 
 const spans = [
-  "lg:col-span-4 lg:row-span-2",
+  "lg:col-span-4 lg:row-span-1",
   "lg:col-span-2 lg:row-span-1",
   "lg:col-span-2 lg:row-span-1",
+  "lg:col-span-6 lg:row-span-1",
   "lg:col-span-6 lg:row-span-1",
 ];
 
@@ -25,12 +26,12 @@ export function ProjectGrid() {
       </SplitHeading>
 
       <Reveal
-        className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-6 lg:auto-rows-[minmax(220px,auto)]"
+        className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-6 lg:auto-rows-[minmax(160px,auto)]"
         stagger
         y={36}
       >
         {projects.map((project, i) => (
-          <TiltCard key={project.slug} className={`group relative ${spans[i % spans.length]}`}>
+          <TiltCard key={project.slug} className={`group relative ${spans[i] ?? "lg:col-span-6"}`}>
             <Link
               href={`/project/${project.slug}`}
               onClick={() => sessionStorage.setItem("portfolio-hero-reentry", "1")}

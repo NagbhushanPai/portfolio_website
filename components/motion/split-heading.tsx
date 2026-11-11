@@ -21,6 +21,7 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
 
     if (prefersReducedMotion()) {
       node.style.opacity = "1";
+      node.style.visibility = "visible";
       return;
     }
 
@@ -34,6 +35,8 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
         linesClass: "split-line",
       });
 
+      gsap.set(node, { visibility: "visible" });
+      gsap.set(split.lines, { yPercent: 110 });
       gsap.to(split.lines, {
         yPercent: 0,
         duration: 0.9,
@@ -58,7 +61,7 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
   }, [delay]);
 
   return (
-    <Tag ref={ref} id={id} className={className}>
+    <Tag ref={ref} id={id} className={`split-heading ${className}`}>
       {children}
     </Tag>
   );

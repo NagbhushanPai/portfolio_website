@@ -35,7 +35,7 @@ export function TechCarousel() {
         </div>
       </div>
 
-      <div key={current.category} className="mt-6 min-h-[7rem] transition-[opacity,transform] duration-700 ease-[var(--motion-ease)]">
+      <div key={current.category} className="tech-carousel-content mt-6 min-h-[7rem]">
         <h3 className="font-serif-display text-2xl italic">{current.category}</h3>
         <div className="mt-4 flex flex-wrap gap-2">
           {current.tools.map((tool) => (

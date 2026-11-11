@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionLabel } from "./section-label";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
@@ -10,7 +10,7 @@ type Day = { date: string; contributionCount: number; weekday: number };
 type Week = { contributionDays: Day[] };
 type ContributionsResponse = { total: number; weeks: Week[] } | { error: string };
 
-const LEVELS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
+const LEVELS = ["#ebe7dd", "#e2c98a", "#e8b73b", "#c98f1c", "#8a5f0c"];
 
 function levelFor(count: number) {
   if (count === 0) return LEVELS[0];
@@ -21,19 +21,44 @@ function levelFor(count: number) {
 }
 
 export function Contributions() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [hasEntered, setHasEntered] = useState(false);
   const [data, setData] = useState<ContributionsResponse | null>(null);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setHasEntered(true);
+        observer.disconnect();
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasEntered) return;
+
     fetch("/api/github-contributions")
       .then((res) => res.json())
       .then(setData)
       .catch(() => setData({ error: "Failed to load" }));
-  }, []);
+  }, [hasEntered]);
 
   if (data && "error" in data) return null;
 
   return (
-    <section id="contributions" className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
+    <section
+      ref={sectionRef}
+      id="contributions"
+      className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12"
+    >
       <Reveal>
         <SectionLabel index="02" label="Activity" />
       </Reveal>
@@ -62,7 +87,7 @@ export function Contributions() {
                   {week.contributionDays.map((day, dayIndex) => (
                     <div
                       key={day.date}
-                      className="heatmap-cell heatmap-cell-animated"
+                      className={`heatmap-cell ${hasEntered ? "heatmap-cell-animated" : ""}`}
                       title={`${day.contributionCount} contributions on ${day.date}`}
                       style={{
                         background: levelFor(day.contributionCount),

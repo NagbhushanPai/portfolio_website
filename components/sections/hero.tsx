@@ -9,9 +9,9 @@ const REENTRY_KEY = "portfolio-hero-reentry";
 const bustSrc = "/hero_bust-removebg-preview-Sw9E7wuY.png";
 
 const statements = [
-  ["Crafting Immersive", "Digital Experiences"],
-  ["Where Deep Tech", "Meets High-End Design"],
-  ["Welcome to my", "Realm."],
+  ["Building Reliable", "Systems"],
+  ["Turning Research", "Into Products"],
+  ["Backend, AI,", "Computer Vision."],
 ] as const;
 
 export function Hero() {
@@ -63,6 +63,7 @@ export function Hero() {
     }
 
     const { gsap, ScrollTrigger } = getGsap();
+    let removeLoaderListener = () => {};
 
     const ctx = gsap.context(() => {
       gsap.set(panel, { opacity: 1, y: 0 });
@@ -136,7 +137,7 @@ export function Hero() {
         return;
       }
 
-      const entrance = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const entrance = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
       entrance
         .to(eyebrow, { opacity: 1, y: 0, duration: 0.45 }, 0.05)
@@ -172,10 +173,16 @@ export function Hero() {
           },
         });
       }
+
+      const startEntrance = () => entrance.play();
+      window.addEventListener("portfolio-loader-complete", startEntrance);
+      removeLoaderListener = () => window.removeEventListener("portfolio-loader-complete", startEntrance);
+      if (document.documentElement.dataset.pageLoaderComplete === "true") startEntrance();
     }, hero);
 
     return () => {
       ctx.revert();
+      removeLoaderListener();
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.trigger === hero) trigger.kill();
       });
@@ -231,30 +238,13 @@ export function Hero() {
                     </span>
                   ))}
 
-                  {index === statements.length - 1 ? (
-                    <svg
-                      viewBox="0 0 200 20"
-                      preserveAspectRatio="none"
-                      aria-hidden="true"
-                      className="mt-2 h-4 w-56 text-[var(--accent)] sm:w-72"
-                    >
-                      <path
-                        d="M2 14 C 50 4, 150 4, 198 14"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  ) : null}
                 </div>
               ))}
             </div>
 
-            <p ref={bodyRef} className="relative z-20 mx-auto mt-8 max-w-2xl rounded-2xl bg-[rgba(246,243,236,0.82)] px-4 py-2 text-balance text-base leading-8 text-[var(--muted)] backdrop-blur-sm sm:text-lg">
-              I&apos;m {siteConfig.name}, a {siteConfig.role.toLowerCase()} building systems that hold up under real
-              traffic, APIs, and computer vision products that ship past the demo stage. The opening sequence introduces
-              the work, then settles into a readable portfolio.
+            <p ref={bodyRef} className="relative z-20 mx-auto mt-8 max-w-2xl text-balance text-base leading-8 text-[var(--muted)] sm:text-lg">
+              I&apos;m {siteConfig.name}, a {siteConfig.role.toLowerCase()} working on backend systems, APIs, and
+              computer-vision products that need to work beyond the demo.
             </p>
 
             <div ref={ctaRef} className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -269,13 +259,13 @@ export function Hero() {
                 href="#about"
                 className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/50 px-5 py-3 text-sm font-medium text-[var(--foreground)] backdrop-blur-sm transition-transform duration-300 hover:-translate-y-0.5"
               >
-                Enter the document
+                Read the work
                 <span aria-hidden="true">↘</span>
               </a>
             </div>
 
             <div ref={cueRef} className="mt-8 text-center text-xs uppercase tracking-[0.28em] text-[var(--muted)]">
-              Scroll to unfold the archive
+              Scroll to explore the work
             </div>
           </div>
         </div>

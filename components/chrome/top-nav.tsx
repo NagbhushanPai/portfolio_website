@@ -6,10 +6,8 @@ import { siteConfig } from "@/lib/portfolio-data";
 
 const links = [
   { label: "About", href: "#about" },
-  { label: "Activity", href: "#contributions" },
   { label: "Work", href: "#work" },
   { label: "Journey", href: "#journey" },
-  { label: "Milestones", href: "#milestones" },
   { label: "Notes", href: "#blog" },
 ];
 

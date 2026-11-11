@@ -27,9 +27,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <div className="lg:flex">
-        {/* LEFT: fixed panel */}
-        <div className="border-b border-black/10 px-5 py-10 pt-28 sm:px-8 md:px-12 lg:sticky lg:top-0 lg:h-screen lg:w-[42%] lg:overflow-y-auto lg:border-b-0 lg:border-r">
+      <div>
+        <div className="max-w-4xl border-b border-black/10 px-5 py-10 pt-28 sm:px-8 md:px-12">
           <CaseStudyBackLink />
 
           <p className="label-meta mt-10">Case Study</p>
@@ -119,12 +118,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
 
-        {/* RIGHT: independently scrolling screenshots */}
-        <div className="flex-1 px-5 py-10 sm:px-8 md:px-12 lg:py-16">
-          <div className="space-y-8">
-            <p className="text-sm text-[var(--muted)]">Project visuals are being prepared.</p>
-          </div>
-        </div>
       </div>
     </main>
   );

@@ -27,6 +27,8 @@ export function PageLoader() {
     if (alreadyLoaded || prefersReducedMotion()) {
       overlay.style.display = "none";
       sessionStorage.setItem(LOADED_KEY, "1");
+      document.documentElement.dataset.pageLoaderComplete = "true";
+      window.dispatchEvent(new CustomEvent("portfolio-loader-complete"));
       return;
     }
 
@@ -38,6 +40,8 @@ export function PageLoader() {
       onComplete: () => {
         document.documentElement.style.overflow = "";
         overlay.style.display = "none";
+        document.documentElement.dataset.pageLoaderComplete = "true";
+        window.dispatchEvent(new CustomEvent("portfolio-loader-complete"));
       },
     });
 

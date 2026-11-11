@@ -13,16 +13,16 @@ export function Intro() {
       <div className="grid gap-14 lg:grid-cols-[minmax(240px,0.82fr)_minmax(0,1.18fr)] lg:gap-20">
         <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
           <Reveal>
-            <SectionLabel index="01" label="Editorial Overview" />
+            <SectionLabel index="01" label="Profile" />
           </Reveal>
 
           <SplitHeading as="h2" className="max-w-sm font-serif-display text-4xl italic leading-tight sm:text-5xl">
-            A portfolio shaped like a <span className="not-italic font-medium">long-form document.</span>
+            Systems designed to <span className="not-italic font-medium">survive contact with reality.</span>
           </SplitHeading>
 
           <p className="max-w-sm text-base leading-7 text-[var(--muted)] sm:text-lg">
-            System architecture, AI workflows, and product surfaces presented with enough whitespace to read like a
-            field note rather than a dense dashboard.
+            Backend services, distributed systems, and computer-vision work built with attention to the details that
+            make software observable, testable, and useful.
           </p>
 
           <div className="space-y-4 rounded-3xl border border-black/10 bg-white/55 p-5 backdrop-blur-sm">
@@ -44,7 +44,7 @@ export function Intro() {
               </div>
               <div className="rounded-2xl border border-black/10 bg-white/80 p-4">
                 <p className="label-meta">Mode</p>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Built to ship, observe, and stay debuggable.</p>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Ship it, measure it, improve it.</p>
               </div>
             </div>
           </div>
@@ -103,15 +103,13 @@ export function Intro() {
 
           <Reveal className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]" delay={0.2}>
             <div className="rounded-3xl border border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] p-6 lg:col-span-2">
-              <p className="label-meta">Selected notes</p>
+              <p className="label-meta">How I work</p>
               <div className="mt-4 space-y-4 text-sm leading-7 text-[var(--muted)]">
                 <p>
-                  I like systems that behave like good editorial design: clear hierarchy, restrained surface area,
-                  and enough structure that the next change does not collapse the composition.
+                  I care about clear boundaries, useful logs, and interfaces that make the next change safer.
                 </p>
                 <p>
-                  This page intentionally leaves breathing room around the important parts, so the work and the
-                  transitions can read with more weight.
+                  The projects below cover rate limiting, messaging, retrieval evaluation, and multimodal detection.
                 </p>
               </div>
               <div className="mt-6 flex flex-wrap gap-2">

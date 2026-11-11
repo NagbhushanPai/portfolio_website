@@ -46,7 +46,7 @@ export function SiteFooter() {
             {siteConfig.email}
           </a>
           <p className="mt-6 text-xs text-[var(--muted)]">
-            © {new Date().getFullYear()} {siteConfig.name}. Built with intent.
+            © {new Date().getFullYear()} {siteConfig.name}.
           </p>
         </div>
       </Reveal>

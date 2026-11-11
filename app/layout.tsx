@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { TopNav } from "@/components/chrome/top-nav";
-import { TalkButton } from "@/components/chrome/talk-button";
-import { NoiseOverlay } from "@/components/chrome/noise-overlay";
 import { CursorLens } from "@/components/chrome/cursor-lens";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { PageLoader } from "@/components/motion/page-loader";
@@ -50,13 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
-        <NoiseOverlay />
         <PageLoader />
         <SmoothScroll />
         <CursorLens />
         <TopNav />
         {children}
-        <TalkButton />
         <Analytics />
       </body>
     </html>
