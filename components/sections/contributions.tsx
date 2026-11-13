@@ -1,23 +1,94 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SectionLabel } from "./section-label";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
-import { Counter } from "@/components/motion/counter";
 
 type Day = { date: string; contributionCount: number; weekday: number };
 type Week = { contributionDays: Day[] };
 type ContributionsResponse = { total: number; weeks: Week[] } | { error: string };
 
-const LEVELS = ["#ebe7dd", "#e2c98a", "#e8b73b", "#c98f1c", "#8a5f0c"];
+// Calendar geometry, matching the GitHub-calendar look of the reference site.
+const BLOCK = 12;
+const GAP = 4;
+const FONT = 14;
+const LABEL_H = FONT + GAP * 2;
+const LEVEL_VARS = ["var(--cal-0)", "var(--cal-1)", "var(--cal-2)", "var(--cal-3)", "var(--cal-4)"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function levelFor(count: number) {
-  if (count === 0) return LEVELS[0];
-  if (count <= 2) return LEVELS[1];
-  if (count <= 5) return LEVELS[2];
-  if (count <= 9) return LEVELS[3];
-  return LEVELS[4];
+  if (count === 0) return 0;
+  if (count <= 2) return 1;
+  if (count <= 5) return 2;
+  if (count <= 9) return 3;
+  return 4;
+}
+
+function monthLabels(weeks: Week[]) {
+  const labels: { x: number; label: string }[] = [];
+  let lastMonth = -1;
+  weeks.forEach((week, i) => {
+    const first = week.contributionDays[0];
+    if (!first) return;
+    const month = new Date(first.date + "T00:00:00").getMonth();
+    if (month !== lastMonth) {
+      labels.push({ x: i, label: MONTHS[month] });
+      lastMonth = month;
+    }
+  });
+  // Drop a label that would collide with the next one (fewer than 3 weeks apart).
+  return labels.filter((l, i) => !labels[i + 1] || labels[i + 1].x - l.x >= 3);
+}
+
+function Calendar({ data }: { data: { total: number; weeks: Week[] } }) {
+  const width = data.weeks.length * (BLOCK + GAP) - GAP;
+  const height = LABEL_H + 7 * (BLOCK + GAP) - GAP;
+  const labels = useMemo(() => monthLabels(data.weeks), [data.weeks]);
+
+  return (
+    <div className="inline-flex flex-col gap-2 text-[var(--foreground)]" style={{ fontSize: FONT }}>
+      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="block overflow-visible" role="img" aria-label={`${data.total} GitHub contributions in the last year`}>
+        <g fill="currentColor">
+          {labels.map((l) => (
+            <text key={`${l.label}-${l.x}`} x={l.x * (BLOCK + GAP)} y={FONT} dominantBaseline="auto">
+              {l.label}
+            </text>
+          ))}
+        </g>
+        {data.weeks.map((week, wi) =>
+          week.contributionDays.map((day) => (
+            <rect
+              key={day.date}
+              x={wi * (BLOCK + GAP)}
+              y={LABEL_H + day.weekday * (BLOCK + GAP)}
+              width={BLOCK}
+              height={BLOCK}
+              rx={2}
+              ry={2}
+              fill={LEVEL_VARS[levelFor(day.contributionCount)]}
+              style={{ transition: "fill 0.5s ease" }}
+            >
+              <title>{`${day.contributionCount} contributions on ${day.date}`}</title>
+            </rect>
+          )),
+        )}
+      </svg>
+
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1" style={{ width }}>
+        <span>{data.total.toLocaleString()} contributions in the last year</span>
+        <span className="flex items-center gap-[3px]">
+          <span className="mr-1.5">Less</span>
+          {LEVEL_VARS.map((color) => (
+            <svg key={color} width={BLOCK} height={BLOCK} aria-hidden="true">
+              <rect width={BLOCK} height={BLOCK} rx={2} fill={color} />
+            </svg>
+          ))}
+          <span className="ml-1.5">More</span>
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export function Contributions() {
@@ -35,7 +106,7 @@ export function Contributions() {
         setHasEntered(true);
         observer.disconnect();
       },
-      { threshold: 0.1 },
+      { rootMargin: "200px 0px", threshold: 0 },
     );
 
     observer.observe(section);
@@ -57,56 +128,32 @@ export function Contributions() {
     <section
       ref={sectionRef}
       id="contributions"
-      className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12"
+      className="flex flex-col gap-16 border-t border-[var(--line)] px-5 py-16 sm:px-8 md:px-12 lg:py-32"
     >
-      <Reveal>
-        <SectionLabel index="02" label="Activity" />
-      </Reveal>
-      <SplitHeading className="mt-6 font-serif-display text-3xl italic leading-tight sm:text-4xl">
-        Building in <span className="not-italic font-medium">public,</span> most days.
-      </SplitHeading>
+      <div>
+        <Reveal>
+          <SectionLabel index="02" label="Activity" />
+        </Reveal>
+        <SplitHeading className="mt-6 font-serif-display text-3xl italic leading-tight sm:text-4xl">
+          Building in <span className="not-italic font-medium">public,</span> most days.
+        </SplitHeading>
+      </div>
 
-      <Reveal className="mt-10 rounded-2xl border border-black/10 bg-white/50 p-6" delay={0.1}>
-        {!data ? (
-          <div className="h-[110px] animate-pulse rounded-lg bg-black/5" aria-hidden="true" />
-        ) : (
-          <>
-            <p className="text-sm text-[var(--muted)]">
-              <span className="font-medium text-[var(--foreground)]">
-                <Counter to={data.total} />
-              </span>{" "}
-              contributions in the last year
-            </p>
+      <Reveal
+        className="flex w-full justify-start overflow-x-auto border-y border-[var(--line)] py-12 transition-colors duration-500 lg:justify-center"
+        delay={0.1}
+      >
+        <div className="min-w-max px-4">
+          {!data ? (
             <div
-              className="heatmap-grid mt-4 grid w-full gap-[clamp(2px,0.35vw,5px)]"
-              style={{ gridTemplateColumns: `repeat(${data.weeks.length}, minmax(0, 1fr))` }}
-              aria-label="GitHub contributions for the last year"
-            >
-              {data.weeks.map((week, i) => (
-                <div key={i} className="grid min-w-0 grid-rows-7 gap-[clamp(2px,0.35vw,5px)]">
-                  {week.contributionDays.map((day, dayIndex) => (
-                    <div
-                      key={day.date}
-                      className={`heatmap-cell ${hasEntered ? "heatmap-cell-animated" : ""}`}
-                      title={`${day.contributionCount} contributions on ${day.date}`}
-                      style={{
-                        background: levelFor(day.contributionCount),
-                        animationDelay: `${(i * 7 + dayIndex) * 8}ms`,
-                      }}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-            <div className="heatmap-legend mt-4 flex items-center gap-2 text-xs text-[var(--muted)]">
-              <span>Less</span>
-              {LEVELS.map((color) => (
-                <span key={color} className="heatmap-cell" style={{ background: color }} />
-              ))}
-              <span>More</span>
-            </div>
-          </>
-        )}
+              className="animate-pulse rounded-sm bg-[var(--cal-0)]"
+              style={{ width: 53 * (BLOCK + GAP) - GAP, height: LABEL_H + 7 * (BLOCK + GAP) + 24 }}
+              aria-hidden="true"
+            />
+          ) : (
+            <Calendar data={data} />
+          )}
+        </div>
       </Reveal>
     </section>
   );

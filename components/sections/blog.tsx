@@ -5,7 +5,7 @@ import { blogPosts } from "@/lib/portfolio-data";
 
 export function Blog() {
   return (
-    <section id="blog" aria-labelledby="blog-heading" className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
+    <section id="blog" aria-labelledby="blog-heading" className="border-t border-[var(--line)] px-5 py-20 sm:px-8 md:px-12">
       <Reveal>
         <SectionLabel index="06" label="Field Notes" />
       </Reveal>
@@ -20,12 +20,12 @@ export function Blog() {
             href={post.fullPostUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="group flex flex-col justify-between rounded-2xl border border-black/10 bg-white/60 p-6 transition hover:-translate-y-1 hover:border-black/20 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+            className="group flex flex-col justify-between rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 transition hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow)]"
           >
             <div>
               <div className="flex flex-wrap gap-1.5">
                 {post.tags.slice(0, 2).map((tag) => (
-                  <span key={tag} className="label-meta rounded-full border border-black/10 bg-white px-2.5 py-1">
+                  <span key={tag} className="label-meta rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-2.5 py-1">
                     {tag}
                   </span>
                 ))}

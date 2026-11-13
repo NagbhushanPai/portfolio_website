@@ -1,14 +1,52 @@
 @import "tailwindcss";
 
+/* Dark is the default; light mirrors the reference site's #fff / #222 palette. */
+:root,
+:root[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #e7e5e5;
+  --muted: #8a8a8f;
+  --panel: rgba(23, 23, 23, 0.6);
+  --surface-2: rgba(255, 255, 255, 0.04);
+  --glass: rgba(10, 10, 10, 0.72);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --accent: #ffed8b;
+  --grain-opacity: 0.06;
+  --grain-blend: normal;
+  --cal-0: #1b1c1e;
+  --cal-1: #1e3a8a;
+  --cal-2: #3b82f6;
+  --cal-3: #d946ef;
+  --cal-4: #f472b6;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #222222;
+  --muted: #6b6b6b;
+  --panel: rgba(240, 240, 240, 0.6);
+  --surface-2: rgba(34, 34, 34, 0.04);
+  --glass: rgba(255, 255, 255, 0.78);
+  --line: rgba(34, 34, 34, 0.1);
+  --line-strong: rgba(34, 34, 34, 0.22);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --accent: #ffed8b;
+  --grain-opacity: 0.12;
+  --grain-blend: multiply;
+  --cal-0: #f0f0f0;
+  --cal-1: #c6e48b;
+  --cal-2: #7bc96f;
+  --cal-3: #239a3b;
+  --cal-4: #196127;
+  color-scheme: light;
+}
+
 :root {
-  --background: #f6f3ec;
-  --foreground: #16140f;
-  --muted: #4f4a3f;
-  --panel: rgba(255, 255, 255, 0.6);
-  --line: rgba(22, 20, 15, 0.1);
-  --accent: #e8b73b;
-  --font-serif: "Fraunces", "Iowan Old Style", "Georgia", serif;
-  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", "Iowan Old Style", "Georgia", serif;
+  --font-sans: "Geist", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --motion-duration: 0.7s;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -69,11 +107,13 @@ body {
 }
 
 ::selection {
-  background: rgba(232, 183, 59, 0.35);
+  background: rgba(255, 237, 139, 0.25);
 }
 
 .font-serif-display {
   font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .label-meta {
@@ -128,34 +168,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Contribution heatmap */
-.heatmap-cell {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 2px;
-}
-
-.heatmap-legend .heatmap-cell {
-  width: 11px;
-  height: 11px;
-  flex: 0 0 11px;
-}
-
-@keyframes heatmap-cell-in {
-  from {
-    opacity: 0;
-    transform: scale(0.35);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.heatmap-cell-animated {
-  animation: heatmap-cell-in 0.7s var(--motion-ease) both;
-}
-
 @keyframes tech-carousel-in {
   from {
     opacity: 0;
@@ -171,8 +183,67 @@ body {
   animation: tech-carousel-in 0.35s var(--motion-ease) both;
 }
 
+
+/* Film grain overlay */
+@keyframes noise {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
+
+.grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  width: 200%;
+  height: 200%;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: noise 8s steps(10) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .heatmap-cell-animated {
-    animation: none;
-  }
+  .grain-overlay { animation: none; }
+}
+
+.label-meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Circular theme reveal (View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Tech marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) linear infinite;
+}
+
+.marquee-group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+:root[data-theme="dark"] .hero-bust-img {
+  mix-blend-mode: normal;
+}
+
+:root[data-theme="light"] .hero-bust-img {
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
 }

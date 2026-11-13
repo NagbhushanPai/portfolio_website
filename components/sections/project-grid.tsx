@@ -17,7 +17,7 @@ const spans = [
 
 export function ProjectGrid() {
   return (
-    <section id="work" className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
+    <section id="work" className="border-t border-[var(--line)] px-5 py-20 sm:px-8 md:px-12">
       <Reveal>
         <SectionLabel index="03" label="Creating with Code" />
       </Reveal>
@@ -35,7 +35,7 @@ export function ProjectGrid() {
             <Link
               href={`/project/${project.slug}`}
               onClick={() => sessionStorage.setItem("portfolio-hero-reentry", "1")}
-              className="flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-black/10 bg-white/60 p-6 transition-colors hover:border-black/20 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+              className="flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 transition-colors hover:border-[var(--line-strong)] hover:shadow-[var(--shadow)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-serif-display text-2xl italic">{project.name}</h3>
@@ -43,7 +43,7 @@ export function ProjectGrid() {
                   {project.techStack.slice(0, 2).map((tech) => (
                     <span
                       key={tech}
-                      className="label-meta whitespace-nowrap rounded-full border border-black/10 bg-white px-2.5 py-1"
+                      className="label-meta whitespace-nowrap rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-2.5 py-1"
                     >
                       {tech}
                     </span>

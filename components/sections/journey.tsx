@@ -42,10 +42,12 @@ function AccordionPanel({ open, children }: { open: boolean; children: ReactNode
 }
 
 export function Journey() {
-  const [openId, setOpenId] = useState<string | undefined>(journey[0]?.id);
+  const [openId, setOpenId] = useState<string | undefined>();
+  const [hoverId, setHoverId] = useState<string | undefined>();
+  const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   return (
-    <section id="journey" aria-labelledby="journey-heading" className="border-t border-black/10 px-5 py-20 sm:px-8 md:px-12">
+    <section id="journey" aria-labelledby="journey-heading" className="border-t border-[var(--line)] px-5 py-20 sm:px-8 md:px-12">
       <Reveal>
         <SectionLabel index="04" label="Experience" />
       </Reveal>
@@ -53,14 +55,22 @@ export function Journey() {
         Professional <span className="not-italic font-medium">journey.</span>
       </SplitHeading>
 
-      <Reveal className="mt-10 divide-y divide-black/10 border-t border-black/10" stagger delay={0.05}>
+      <Reveal className="mt-10 divide-y divide-[var(--line)] border-t border-[var(--line)]" stagger delay={0.05}>
         {journey.map((entry) => {
-          const open = openId === entry.id;
+          const open = openId === entry.id || hoverId === entry.id;
           return (
-            <div key={entry.id}>
+            <div
+              key={entry.id}
+              onMouseEnter={() => canHover() && setHoverId(entry.id)}
+              onMouseLeave={() => setHoverId(undefined)}
+              className={`-mx-4 rounded-2xl px-4 transition-colors duration-500 ease-out ${open ? "bg-[var(--surface-2)]" : ""}`}
+            >
               <button
                 type="button"
-                onClick={() => setOpenId(open ? undefined : entry.id)}
+                onClick={() => {
+                  setOpenId(open ? undefined : entry.id);
+                  if (open) setHoverId(undefined);
+                }}
                 aria-expanded={open}
                 className="grid w-full grid-cols-1 gap-2 py-6 text-left transition-[opacity,transform] duration-300 ease-out hover:translate-x-1 hover:opacity-80 sm:grid-cols-[1fr_2fr] sm:items-center sm:gap-6"
               >
@@ -101,7 +111,7 @@ export function Journey() {
                       {entry.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs uppercase tracking-[0.08em] text-[var(--muted)]"
+                          className="rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1 text-xs uppercase tracking-[0.08em] text-[var(--muted)]"
                         >
                           {skill}
                         </span>

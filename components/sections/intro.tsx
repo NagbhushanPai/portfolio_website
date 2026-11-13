@@ -9,7 +9,7 @@ export function Intro() {
   const featuredProjects = projects.slice(0, 2);
 
   return (
-    <section id="about" className="border-t border-black/10 px-5 py-24 sm:px-8 md:px-12 lg:py-28">
+    <section id="about" className="border-t border-[var(--line)] px-5 py-24 sm:px-8 md:px-12 lg:py-28">
       <div className="grid gap-14 lg:grid-cols-[minmax(240px,0.82fr)_minmax(0,1.18fr)] lg:gap-20">
         <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
           <Reveal>
@@ -25,8 +25,8 @@ export function Intro() {
             make software observable, testable, and useful.
           </p>
 
-          <div className="space-y-4 rounded-3xl border border-black/10 bg-white/55 p-5 backdrop-blur-sm">
-            <div className="flex items-center justify-between gap-4 border-b border-black/10 pb-4">
+          <div className="space-y-4 rounded-3xl border border-[var(--line)] bg-[var(--panel)] p-5 backdrop-blur-sm">
+            <div className="flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
               <div>
                 <p className="label-meta">Role</p>
                 <p className="mt-2 text-sm font-medium text-[var(--foreground)]">{siteConfig.role}</p>
@@ -38,11 +38,11 @@ export function Intro() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-2xl border border-black/10 bg-white/80 p-4">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-4">
                 <p className="label-meta">Focus</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Backend systems, APIs, and computer vision.</p>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white/80 p-4">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-4">
                 <p className="label-meta">Mode</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Ship it, measure it, improve it.</p>
               </div>
@@ -67,7 +67,7 @@ export function Intro() {
 
           <Reveal className="grid gap-4 sm:grid-cols-2" stagger delay={0.1} y={24}>
             {heroStats.map((stat) => (
-              <div key={stat.label} className="rounded-3xl border border-black/10 bg-white/60 p-5">
+              <div key={stat.label} className="rounded-3xl border border-[var(--line)] bg-[var(--panel)] p-5">
                 <p className="font-serif-display text-3xl italic tracking-tight text-[var(--foreground)]">{stat.value}</p>
                 <p className="mt-2 text-sm uppercase tracking-[0.16em] text-[var(--muted)]">{stat.label}</p>
               </div>
@@ -79,7 +79,7 @@ export function Intro() {
               <Link
                 key={project.slug}
                 href={`/project/${project.slug}`}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.5))] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(0,0,0,0.08)]"
+                className="group flex h-full flex-col justify-between rounded-3xl border border-[var(--line)] bg-[var(--panel)] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow)]"
               >
                 <div>
                   <p className="label-meta">Featured project</p>
@@ -91,7 +91,7 @@ export function Intro() {
                   {project.metrics.slice(0, 3).map((metric) => (
                     <span
                       key={metric}
-                      className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs uppercase tracking-[0.1em] text-[var(--muted)]"
+                      className="rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1 text-xs uppercase tracking-[0.1em] text-[var(--muted)]"
                     >
                       {metric}
                     </span>
@@ -102,7 +102,7 @@ export function Intro() {
           </Reveal>
 
           <Reveal className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]" delay={0.2}>
-            <div className="rounded-3xl border border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.48))] p-6 lg:col-span-2">
+            <div className="rounded-3xl border border-[var(--line)] bg-[var(--panel)] p-6 lg:col-span-2">
               <p className="label-meta">How I work</p>
               <div className="mt-4 space-y-4 text-sm leading-7 text-[var(--muted)]">
                 <p>
@@ -116,7 +116,7 @@ export function Intro() {
                 {siteConfig.tagline.split(", ").map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs uppercase tracking-[0.1em] text-[var(--muted)]"
+                    className="rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1 text-xs uppercase tracking-[0.1em] text-[var(--muted)]"
                   >
                     {item}
                   </span>

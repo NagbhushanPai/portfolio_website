@@ -65,7 +65,7 @@ export function PageLoader() {
       <div ref={markRef} className="font-serif-display text-2xl italic tracking-tight text-[var(--foreground)]">
         {monogram(siteConfig.name)}
       </div>
-      <div className="h-px w-40 origin-left overflow-hidden bg-black/10">
+      <div className="h-px w-40 origin-left overflow-hidden bg-[var(--surface-2)]">
         <div ref={barRef} className="h-full w-full origin-left scale-x-0 bg-[var(--foreground)]" />
       </div>
     </div>

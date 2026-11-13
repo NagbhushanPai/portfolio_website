@@ -25,16 +25,17 @@ export function Reveal({ children, className = "", stagger = false, delay = 0, y
 
     const ctx = gsap.context(() => {
       if (stagger) gsap.set(node, { opacity: 1 });
-      gsap.set(targets, { opacity: 0, y });
+      gsap.set(targets, { opacity: 0, y, filter: "blur(8px)" });
       gsap.to(
         targets,
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          filter: "blur(0px)",
+          duration: 1,
           delay,
-          ease: "power3.out",
-          stagger: stagger ? 0.1 : 0,
+          ease: "expo.out",
+          stagger: stagger ? 0.08 : 0,
           scrollTrigger: {
             trigger: node,
             start: "top 85%",

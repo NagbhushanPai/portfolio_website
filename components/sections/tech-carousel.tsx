@@ -12,7 +12,7 @@ export function TechCarousel() {
   }
 
   return (
-    <div className="rounded-2xl border border-black/10 bg-white/50 p-6">
+    <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6">
       <div className="flex items-center justify-between gap-4">
         <p className="label-meta">Tech Stack</p>
         <div className="flex items-center gap-2">
@@ -20,7 +20,7 @@ export function TechCarousel() {
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous category"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 transition hover:bg-black/5"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line)] transition hover:bg-[var(--surface-2)]"
           >
             ←
           </button>
@@ -28,7 +28,7 @@ export function TechCarousel() {
             type="button"
             onClick={() => go(1)}
             aria-label="Next category"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 transition hover:bg-black/5"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line)] transition hover:bg-[var(--surface-2)]"
           >
             →
           </button>
@@ -41,7 +41,7 @@ export function TechCarousel() {
           {current.tools.map((tool) => (
             <span
               key={tool}
-              className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs uppercase tracking-[0.08em] text-[var(--muted)]"
+              className="rounded-full border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1 text-xs uppercase tracking-[0.08em] text-[var(--muted)]"
             >
               {tool}
             </span>

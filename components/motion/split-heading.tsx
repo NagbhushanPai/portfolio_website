@@ -39,9 +39,9 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
       gsap.set(split.lines, { yPercent: 110 });
       gsap.to(split.lines, {
         yPercent: 0,
-        duration: 0.9,
+        duration: 1.1,
         delay,
-        ease: "power4.out",
+        ease: "expo.out",
         stagger: 0.08,
         scrollTrigger: {
           trigger: node,

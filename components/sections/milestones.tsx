@@ -5,7 +5,7 @@ import { milestones } from "@/lib/portfolio-data";
 
 export function Milestones() {
   return (
-    <section id="milestones" className="border-t border-black/10 py-20 sm:px-8 md:px-12">
+    <section id="milestones" className="border-t border-[var(--line)] py-20 sm:px-8 md:px-12">
       <Reveal className="px-5 sm:px-0">
         <SectionLabel index="05" label="Achievements" />
       </Reveal>
@@ -21,12 +21,12 @@ export function Milestones() {
         {milestones.map((m) => (
           <article
             key={m.id}
-            className="scroll-snap-item w-[280px] rounded-2xl border border-black/10 bg-white/60 p-6 shadow-[0_8px_24px_rgba(0,0,0,0.03)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_14px_32px_rgba(0,0,0,0.07)] sm:w-[320px]"
+            className="scroll-snap-item w-[280px] rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-6 shadow-[var(--shadow)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow)] sm:w-[320px]"
           >
             <span className="text-[var(--accent)]" aria-hidden="true">
               ★
             </span>
-            <p className="label-meta mt-3 inline-block rounded-full border border-black/10 px-2.5 py-1">
+            <p className="label-meta mt-3 inline-block rounded-full border border-[var(--line)] px-2.5 py-1">
               {m.badge}
             </p>
             <h3 className="mt-4 font-serif-display text-xl italic leading-snug">{m.title}</h3>
