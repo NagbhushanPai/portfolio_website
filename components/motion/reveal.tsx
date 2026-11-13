@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import { getGsap, prefersReducedMotion } from "@/lib/gsap";
+import { getGsap, isLowPowerDevice, prefersReducedMotion } from "@/lib/gsap";
 
 type RevealProps = {
   children: ReactNode;
@@ -22,16 +22,17 @@ export function Reveal({ children, className = "", stagger = false, delay = 0, y
 
     const { gsap, ScrollTrigger } = getGsap();
     const targets = stagger ? Array.from(node.children) : node;
+    const blur = !isLowPowerDevice();
 
     const ctx = gsap.context(() => {
       if (stagger) gsap.set(node, { opacity: 1 });
-      gsap.set(targets, { opacity: 0, y, filter: "blur(8px)" });
+      gsap.set(targets, { opacity: 0, y, ...(blur && { filter: "blur(8px)" }) });
       gsap.to(
         targets,
         {
           opacity: 1,
           y: 0,
-          filter: "blur(0px)",
+          ...(blur && { filter: "blur(0px)" }),
           duration: 1,
           delay,
           ease: "expo.out",

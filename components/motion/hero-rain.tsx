@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { getTheme } from "@/lib/theme";
+import { isLowPowerDevice } from "@/lib/gsap";
 
 /** Falling streaks drawn on a canvas: light streaks in dark mode, dark streaks in light mode. */
 export function HeroRain() {
@@ -18,7 +19,8 @@ export function HeroRain() {
     canvas.width = width;
     canvas.height = height;
 
-    const drops = Array.from({ length: 200 }, () => ({
+    const lowPower = isLowPowerDevice();
+    const drops = Array.from({ length: lowPower ? 60 : 200 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       length: Math.random() * 25 + 10,
@@ -34,9 +36,12 @@ export function HeroRain() {
     observer.observe(canvas);
 
     let frame = 0;
-    const draw = () => {
+    let last = 0;
+    const minFrameMs = lowPower ? 1000 / 30 : 0; // ~30fps on phones
+    const draw = (now = 0) => {
       frame = requestAnimationFrame(draw);
-      if (!visible) return;
+      if (!visible || document.hidden || now - last < minFrameMs) return;
+      last = now;
       const rgb = getTheme() === "dark" ? "255, 255, 255" : "34, 34, 34";
 
       // Fade previous frames toward transparent so streaks leave short trails on any background.

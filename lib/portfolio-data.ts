@@ -67,7 +67,7 @@ export const siteConfig = {
 
 export const heroStats = [
   { value: "10K+", label: "requests/sec" },
-  { value: "92%", label: "deepfake accuracy" },
+  { value: "92%", label: "accuracy on FaceForensics++" },
 ] as const;
 
 export const experience: ExperienceItem[] = [
@@ -240,13 +240,13 @@ export const projects: Project[] = [
       "Keeping inference fast enough for practical analysis.",
       "Returning a score that is useful rather than just a label.",
     ],
-    benchmarks: ["92% classification accuracy", "Real-time inference", "Explainable scoring"],
+    benchmarks: ["92% accuracy on the FaceForensics++ dataset", "Real-time inference", "Explainable scoring"],
     lessonsLearned: [
       "Strong preprocessing often matters as much as model choice in media problems.",
       "Explainability improves trust when the output is meant for decision support.",
     ],
     techStack: ["PyTorch", "OpenCV", "Flask", "Vision Transformers", "CNNs"],
-    metrics: ["CNN + Vision Transformer feature fusion", "Real-time inference", "Explainable scoring"],
+    metrics: ["92% accuracy on FaceForensics++", "CNN + Vision Transformer feature fusion", "Real-time inference", "Explainable scoring"],
     githubUrl: "https://github.com/NagbhushanPai/Deepfake-Detection-MTCNN-ConViT.git",
     liveUrl: undefined,
     featured: true,
@@ -443,7 +443,7 @@ export const achievements = [
   "Smart India Hackathon 2024 Finalist",
   "NCC Sergeant with C Certificate",
   "IIT BHU research project contributor",
-  "92% deepfake detection accuracy",
+  "92% deepfake detection accuracy on FaceForensics++",
   "10K+ requests/sec rate-limiter design",
 ] as const;
 
@@ -527,7 +527,7 @@ export const milestones: Milestone[] = [
     title: "Deepfake Detection System",
     subtitle: "CNN + Vision Transformer fusion",
     description:
-      "Shipped a real-time multimodal detection pipeline combining spatial and temporal features for manipulated media.",
+      "Shipped a real-time multimodal detection pipeline combining spatial and temporal features, reaching 92% accuracy on the FaceForensics++ dataset.",
   },
   {
     id: "rate-limiter",

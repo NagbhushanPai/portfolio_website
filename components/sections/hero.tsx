@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
-import { getGsap, prefersReducedMotion } from "@/lib/gsap";
+import { getGsap, isLowPowerDevice, prefersReducedMotion } from "@/lib/gsap";
 import { siteConfig } from "@/lib/portfolio-data";
 import { toggleTheme } from "@/lib/theme";
 import { HeroRain } from "@/components/motion/hero-rain";
@@ -49,6 +49,9 @@ export function Hero() {
 
     const { gsap, ScrollTrigger } = getGsap();
     const ease = "expo.out";
+    const lowPower = isLowPowerDevice();
+    // Animating CSS blur is the most expensive thing on phones; drop it there.
+    const blur = (v: string) => (lowPower ? {} : { filter: `blur(${v})` });
     let removeLoaderListener = () => {};
 
     const ctx = gsap.context(() => {
@@ -61,16 +64,16 @@ export function Hero() {
       const bustInner = bustInnerRef.current;
 
       /* ---------- Entrance (after the page loader) ---------- */
-      gsap.set(nameLines, { opacity: 0, y: 50, filter: "blur(10px)" });
-      gsap.set(bustInner, { opacity: 0, scale: 0.9, y: 30, filter: "blur(10px)" });
+      gsap.set(nameLines, { opacity: 0, y: 50, ...blur("10px") });
+      gsap.set(bustInner, { opacity: 0, scale: 0.9, y: 30, ...blur("10px") });
       gsap.set(copy, { opacity: 0, y: 20 });
       gsap.set(arrows, { opacity: 0, y: 20 });
 
       const entrance = gsap.timeline({ paused: true, defaults: { ease, duration: 0.8 } });
       entrance
-        .to(nameLines[0], { opacity: 1, y: 0, filter: "blur(0px)" }, 0)
-        .to(nameLines[1], { opacity: 1, y: 0, filter: "blur(0px)" }, 0.05)
-        .to(bustInner, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 1.2 }, 0.1)
+        .to(nameLines[0], { opacity: 1, y: 0, ...blur("0px") }, 0)
+        .to(nameLines[1], { opacity: 1, y: 0, ...blur("0px") }, 0.05)
+        .to(bustInner, { opacity: 1, scale: 1, y: 0, ...blur("0px"), duration: 1.2 }, 0.1)
         .to(copy, { opacity: 1, y: 0, stagger: 0.08 }, 0.25)
         .to(arrows, { opacity: 1, y: 0, stagger: 0.1 }, 0.3);
 
@@ -80,7 +83,7 @@ export function Hero() {
       if (document.documentElement.dataset.pageLoaderComplete === "true") startEntrance();
 
       /* ---------- Scroll timeline (progress 0 → 1 across the 400dvh section) ---------- */
-      gsap.set(statementsEls, { opacity: 0, y: 50, scale: 0.9, filter: "blur(10px)" });
+      gsap.set(statementsEls, { opacity: 0, y: 50, scale: 0.9, ...blur("10px") });
 
       const tl = gsap.timeline({
         defaults: { ease: "none" },
@@ -88,8 +91,8 @@ export function Hero() {
       });
 
       // Name + intro copy fade, drift up and blur away.
-      tl.to(nameLayers, { opacity: 0, filter: "blur(10px)", duration: 0.15 }, 0)
-        .to(copy.map((el) => el?.parentElement), { autoAlpha: 0, filter: "blur(10px)", duration: 0.15 }, 0)
+      tl.to(nameLayers, { opacity: 0, ...blur("10px"), duration: 0.15 }, 0)
+        .to(copy.map((el) => el?.parentElement), { autoAlpha: 0, ...blur("10px"), duration: 0.15 }, 0)
         .to(nameLayers, { y: -150, duration: 0.2 }, 0)
         .to(arrows.map((el) => el?.parentElement), { opacity: 0, duration: 0.05 }, 0);
 
@@ -99,14 +102,14 @@ export function Hero() {
         .to(bustOuter, { y: 150, duration: 1 }, 0)
         .to(bustOuter, { x: "-40vw", duration: 0.3 }, 0.15)
         .to(bustOuter, { x: "-80vw", duration: 0.35 }, 0.45)
-        .to(bustOuter, { filter: "blur(20px)", duration: 0.3 }, 0.6)
+        .to(bustOuter, { ...blur("20px"), duration: 0.3 }, 0.6)
         .to(bustOuter, { opacity: 0, duration: 0.25 }, 0.7);
 
       // Statements cross-fade through their windows.
       statementsEls.forEach((el, i) => {
         const [a, b, c, d] = statementWindows[i];
-        tl.to(el, { opacity: 1, filter: "blur(0px)", duration: b - a }, a)
-          .to(el, { opacity: 0, filter: "blur(10px)", duration: d - c }, c)
+        tl.to(el, { opacity: 1, ...blur("0px"), duration: b - a }, a)
+          .to(el, { opacity: 0, ...blur("10px"), duration: d - c }, c)
           .to(el, { y: -50, scale: 1.1, duration: d - a }, a);
       });
 
@@ -126,13 +129,13 @@ export function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative h-[400dvh] selection:bg-[var(--accent)] selection:text-black"
+      className="relative h-[400svh] selection:bg-[var(--accent)] selection:text-black"
     >
       <h1 className="sr-only">
         {siteConfig.name} — {siteConfig.role}
       </h1>
 
-      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         <HeroRain />
 
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden px-[2vw]">
@@ -180,7 +183,7 @@ export function Hero() {
                   fill
                   priority
                   sizes="30vh"
-                  className="hero-bust-img object-contain grayscale drop-shadow-[0_40px_80px_rgba(0,0,0,0.25)]"
+                  className="hero-bust-img object-contain grayscale md:drop-shadow-[0_40px_80px_rgba(0,0,0,0.25)]"
                 />
               </div>
             </div>
@@ -239,7 +242,7 @@ export function Hero() {
               }}
               className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-4 text-center font-serif-display text-[var(--foreground)] opacity-0"
             >
-              <p className="text-4xl font-medium leading-tight drop-shadow-2xl sm:text-5xl md:text-6xl lg:text-8xl">
+              <p className="text-4xl font-medium leading-tight md:drop-shadow-2xl sm:text-5xl md:text-6xl lg:text-8xl">
                 {line1}
                 <br />
                 <span className="italic">

@@ -230,20 +230,35 @@ body {
 
 .animate-marquee {
   animation: marquee var(--duration) linear infinite;
+  will-change: transform;
 }
 
 .marquee-group:hover .animate-marquee {
   animation-play-state: paused;
 }
 
-:root[data-theme="dark"] .hero-bust-img {
-  mix-blend-mode: normal;
-}
-
-:root[data-theme="light"] .hero-bust-img {
-  mix-blend-mode: multiply;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee { animation: none; }
+}
+
+/* ---------- Phones / touch: drop the costly effects ---------- */
+@media (max-width: 767px), (pointer: coarse) {
+  /* Full-screen animated, blended noise layer forces a repaint every frame. */
+  .grain-overlay {
+    display: none;
+  }
+
+  /* backdrop-filter re-blurs everything behind it on every scroll frame. */
+  [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  :root[data-theme="dark"] {
+    --glass: rgba(14, 14, 14, 0.94);
+  }
+
+  :root[data-theme="light"] {
+    --glass: rgba(255, 255, 255, 0.95);
+  }
 }

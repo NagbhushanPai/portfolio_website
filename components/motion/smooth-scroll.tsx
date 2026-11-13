@@ -2,11 +2,12 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { getGsap, prefersReducedMotion } from "@/lib/gsap";
+import { getGsap, isLowPowerDevice, prefersReducedMotion } from "@/lib/gsap";
 
 export function SmoothScroll() {
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    // Native scrolling is smoother than JS-driven scrolling on touch devices.
+    if (prefersReducedMotion() || isLowPowerDevice()) return;
 
     const { gsap, ScrollTrigger } = getGsap();
     const lenis = new Lenis({
