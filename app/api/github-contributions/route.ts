@@ -26,13 +26,43 @@ function usernameFromUrl(url: string) {
   return url.replace(/\/$/, "").split("/").pop() ?? "";
 }
 
+type Day = { date: string; contributionCount: number; weekday: number };
+
+/** Same data shape as the GraphQL path, built from github-contributions-api.jogruber.de. */
+async function fromPublicApi(login: string) {
+  const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(login)}?y=last`, {
+    next: { revalidate },
+  });
+  if (!res.ok) {
+    return NextResponse.json({ error: "Failed to fetch GitHub contributions" }, { status: 502 });
+  }
+
+  const json = (await res.json()) as {
+    total?: { lastYear?: number };
+    contributions?: { date: string; count: number }[];
+  };
+  if (!json.contributions) {
+    return NextResponse.json({ error: "Unexpected contributions API response" }, { status: 502 });
+  }
+
+  // Group days into Sunday-started weeks, like GitHub's calendar.
+  const weeks: { contributionDays: Day[] }[] = [];
+  for (const { date, count } of json.contributions) {
+    const weekday = new Date(`${date}T00:00:00Z`).getUTCDay();
+    if (weekday === 0 || weeks.length === 0) weeks.push({ contributionDays: [] });
+    weeks[weeks.length - 1].contributionDays.push({ date, contributionCount: count, weekday });
+  }
+
+  const total = json.total?.lastYear ?? json.contributions.reduce((sum, d) => sum + d.count, 0);
+  return NextResponse.json({ total, weeks });
+}
+
 export async function GET() {
   const token = process.env.GITHUB_TOKEN;
   const login = usernameFromUrl(siteConfig.github);
 
-  if (!token) {
-    return NextResponse.json({ error: "GITHUB_TOKEN is not configured" }, { status: 501 });
-  }
+  // No token (e.g. not set on the host): fall back to the public, token-free contributions API.
+  if (!token) return fromPublicApi(login);
 
   const res = await fetch("https://api.github.com/graphql", {
     method: "POST",

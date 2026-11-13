@@ -39,13 +39,13 @@ export function SplitHeading({ children, as: Tag = "h2", className = "", delay =
       gsap.set(split.lines, { yPercent: 110 });
       gsap.to(split.lines, {
         yPercent: 0,
-        duration: 1.1,
+        duration: 0.8,
         delay,
         ease: "expo.out",
-        stagger: 0.08,
+        stagger: 0.06,
         scrollTrigger: {
           trigger: node,
-          start: "top 88%",
+          start: "top 98%",
           once: true,
         },
       });

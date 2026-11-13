@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SectionLabel } from "./section-label";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
@@ -92,41 +92,20 @@ function Calendar({ data }: { data: { total: number; weeks: Week[] } }) {
 }
 
 export function Contributions() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [hasEntered, setHasEntered] = useState(false);
   const [data, setData] = useState<ContributionsResponse | null>(null);
 
+  // Fetch on mount (the response is cached server-side) so the graph is ready before it scrolls into view.
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setHasEntered(true);
-        observer.disconnect();
-      },
-      { rootMargin: "200px 0px", threshold: 0 },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!hasEntered) return;
-
     fetch("/api/github-contributions")
       .then((res) => res.json())
       .then(setData)
       .catch(() => setData({ error: "Failed to load" }));
-  }, [hasEntered]);
+  }, []);
 
   if (data && "error" in data) return null;
 
   return (
     <section
-      ref={sectionRef}
       id="contributions"
       className="flex flex-col gap-16 border-t border-[var(--line)] px-5 py-16 sm:px-8 md:px-12 lg:py-32"
     >

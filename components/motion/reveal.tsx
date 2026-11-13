@@ -13,7 +13,7 @@ type RevealProps = {
   y?: number;
 };
 
-export function Reveal({ children, className = "", stagger = false, delay = 0, y = 28 }: RevealProps) {
+export function Reveal({ children, className = "", stagger = false, delay = 0, y = 20 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -33,13 +33,14 @@ export function Reveal({ children, className = "", stagger = false, delay = 0, y
           opacity: 1,
           y: 0,
           ...(blur && { filter: "blur(0px)" }),
-          duration: 1,
-          delay,
+          duration: 0.7,
+          delay: Math.min(delay, 0.1),
           ease: "expo.out",
-          stagger: stagger ? 0.08 : 0,
+          stagger: stagger ? 0.06 : 0,
           scrollTrigger: {
             trigger: node,
-            start: "top 85%",
+            // Start as soon as the element peeks into view, not once it is 15% up the screen.
+            start: "top 98%",
             once: true,
           },
         },
