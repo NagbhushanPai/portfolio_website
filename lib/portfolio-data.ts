@@ -57,7 +57,7 @@ export type BlogPost = {
 export const siteConfig = {
   name: "Nagbhushan Pai",
   role: "Software Engineer",
-  tagline: "Backend systems, APIs, and computer vision products.",
+  tagline: "Backend systems, APIs, and Automations",
   email: "nagbhushanpai707@gmail.com",
   github: "https://github.com/NagbhushanPai",
   linkedin: "https://www.linkedin.com/in/nagbhushan-pai/",
